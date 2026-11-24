@@ -1,0 +1,22 @@
+# build outputs
+build/
+build-*/
+*.o
+*.d
+*.a
+
+# generated datasets (reproducible with scripts/run_experiments.py; SIFT via scripts/download_sift.sh)
+/data/
+
+# test scratch space
+tests/tmp/
+
+# interrupted experiment groups
+results/*/raw/*.partial
+
+# editors / OS
+.DS_Store
+.vscode/
+.idea/
+*.swp
+__pycache__/

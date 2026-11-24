@@ -1,0 +1,516 @@
+=== e6_delete
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench delete --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --policy tombstone --order random --fractions 0,0.1,0.2,0.3,0.4,0.5 --efs 16,32,64,128 --k 10 --query-reps 5 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e6_delete.csv.partial --tag e6
+built in 7.798 s; deleting in random order with tombstone
+  f=0 ef=16: recall 0.957, 12.55 us, delete 0 us/op
+  f=0 ef=32: recall 0.9955, 25.07 us, delete 0 us/op
+  f=0 ef=64: recall 0.9995, 42.7 us, delete 0 us/op
+  f=0 ef=128: recall 1, 74.76 us, delete 0 us/op
+  f=0.1 ef=16: recall 0.9635, 14.77 us, delete 0.0317 us/op
+  f=0.1 ef=32: recall 0.996, 28.4 us, delete 0.0317 us/op
+  f=0.1 ef=64: recall 0.9995, 52.82 us, delete 0.0317 us/op
+  f=0.1 ef=128: recall 1, 79.88 us, delete 0.0317 us/op
+  f=0.2 ef=16: recall 0.974, 14.73 us, delete 0.02829 us/op
+  f=0.2 ef=32: recall 0.998, 27.02 us, delete 0.02829 us/op
+  f=0.2 ef=64: recall 0.9995, 48.18 us, delete 0.02829 us/op
+  f=0.2 ef=128: recall 1, 82.65 us, delete 0.02829 us/op
+  f=0.3 ef=16: recall 0.979, 20.23 us, delete 0.02531 us/op
+  f=0.3 ef=32: recall 0.9995, 32.62 us, delete 0.02531 us/op
+  f=0.3 ef=64: recall 1, 53.69 us, delete 0.02531 us/op
+  f=0.3 ef=128: recall 1, 90.41 us, delete 0.02531 us/op
+  f=0.4 ef=16: recall 0.984, 20.05 us, delete 0.03186 us/op
+  f=0.4 ef=32: recall 0.9995, 35.26 us, delete 0.03186 us/op
+  f=0.4 ef=64: recall 1, 61.87 us, delete 0.03186 us/op
+  f=0.4 ef=128: recall 1, 99.03 us, delete 0.03186 us/op
+  f=0.5 ef=16: recall 0.991, 24.53 us, delete 0.02315 us/op
+  f=0.5 ef=32: recall 1, 40.89 us, delete 0.02315 us/op
+  f=0.5 ef=64: recall 1, 76.94 us, delete 0.02315 us/op
+  f=0.5 ef=128: recall 1, 111.9 us, delete 0.02315 us/op
+  (9.8 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench delete --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --policy repair-prune --order random --fractions 0,0.1,0.2,0.3,0.4,0.5 --efs 16,32,64,128 --k 10 --query-reps 5 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e6_delete.csv.partial --tag e6
+built in 7.813 s; deleting in random order with repair-prune
+  f=0 ef=16: recall 0.957, 13.29 us, delete 0 us/op
+  f=0 ef=32: recall 0.9955, 22.78 us, delete 0 us/op
+  f=0 ef=64: recall 0.9995, 42.8 us, delete 0 us/op
+  f=0 ef=128: recall 1, 71.49 us, delete 0 us/op
+  f=0.1 ef=16: recall 0.9385, 12.29 us, delete 31.47 us/op
+  f=0.1 ef=32: recall 0.989, 21.08 us, delete 31.47 us/op
+  f=0.1 ef=64: recall 0.999, 42.75 us, delete 31.47 us/op
+  f=0.1 ef=128: recall 1, 70.98 us, delete 31.47 us/op
+  f=0.2 ef=16: recall 0.9345, 13.05 us, delete 22.54 us/op
+  f=0.2 ef=32: recall 0.9875, 21.63 us, delete 22.54 us/op
+  f=0.2 ef=64: recall 0.9995, 42.07 us, delete 22.54 us/op
+  f=0.2 ef=128: recall 1, 79.34 us, delete 22.54 us/op
+  f=0.3 ef=16: recall 0.9365, 14.04 us, delete 19.7 us/op
+  f=0.3 ef=32: recall 0.992, 24.52 us, delete 19.7 us/op
+  f=0.3 ef=64: recall 0.9995, 42.89 us, delete 19.7 us/op
+  f=0.3 ef=128: recall 1, 70.81 us, delete 19.7 us/op
+  f=0.4 ef=16: recall 0.9375, 11.03 us, delete 16.99 us/op
+  f=0.4 ef=32: recall 0.988, 22.06 us, delete 16.99 us/op
+  f=0.4 ef=64: recall 0.998, 39.15 us, delete 16.99 us/op
+  f=0.4 ef=128: recall 1, 71.01 us, delete 16.99 us/op
+  f=0.5 ef=16: recall 0.95, 11.38 us, delete 14.93 us/op
+  f=0.5 ef=32: recall 0.993, 18.31 us, delete 14.93 us/op
+  f=0.5 ef=64: recall 1, 37.81 us, delete 14.93 us/op
+  f=0.5 ef=128: recall 1, 69.57 us, delete 14.93 us/op
+  (10.3 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench delete --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --policy repair-fixed --order random --fractions 0,0.1,0.2,0.3,0.4,0.5 --efs 16,32,64,128 --k 10 --query-reps 5 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e6_delete.csv.partial --tag e6
+built in 7.871 s; deleting in random order with repair-fixed
+  f=0 ef=16: recall 0.957, 11.93 us, delete 0 us/op
+  f=0 ef=32: recall 0.9955, 22.07 us, delete 0 us/op
+  f=0 ef=64: recall 0.9995, 41.89 us, delete 0 us/op
+  f=0 ef=128: recall 1, 69.6 us, delete 0 us/op
+  f=0.1 ef=16: recall 0.9565, 12.33 us, delete 39.58 us/op
+  f=0.1 ef=32: recall 0.9935, 20.84 us, delete 39.58 us/op
+  f=0.1 ef=64: recall 0.999, 38.62 us, delete 39.58 us/op
+  f=0.1 ef=128: recall 1, 67.63 us, delete 39.58 us/op
+  f=0.2 ef=16: recall 0.9505, 11.21 us, delete 32.13 us/op
+  f=0.2 ef=32: recall 0.982, 20.07 us, delete 32.13 us/op
+  f=0.2 ef=64: recall 0.989, 36.36 us, delete 32.13 us/op
+  f=0.2 ef=128: recall 0.9995, 65.91 us, delete 32.13 us/op
+  f=0.3 ef=16: recall 0.9485, 9.512 us, delete 27.85 us/op
+  f=0.3 ef=32: recall 0.969, 19.8 us, delete 27.85 us/op
+  f=0.3 ef=64: recall 0.984, 35.69 us, delete 27.85 us/op
+  f=0.3 ef=128: recall 0.9895, 65.42 us, delete 27.85 us/op
+  f=0.4 ef=16: recall 0.904, 10.52 us, delete 24.6 us/op
+  f=0.4 ef=32: recall 0.9435, 17.12 us, delete 24.6 us/op
+  f=0.4 ef=64: recall 0.964, 34.57 us, delete 24.6 us/op
+  f=0.4 ef=128: recall 0.9645, 63.61 us, delete 24.6 us/op
+  f=0.5 ef=16: recall 0.879, 9.005 us, delete 21.99 us/op
+  f=0.5 ef=32: recall 0.91, 17.42 us, delete 21.99 us/op
+  f=0.5 ef=64: recall 0.9435, 33.02 us, delete 21.99 us/op
+  f=0.5 ef=128: recall 0.9445, 60.83 us, delete 21.99 us/op
+  (10.7 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench delete --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --policy repair --order random --fractions 0,0.1,0.2,0.3,0.4,0.5 --efs 16,32,64,128 --k 10 --query-reps 5 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e6_delete.csv.partial --tag e6
+built in 7.754 s; deleting in random order with repair
+  f=0 ef=16: recall 0.957, 13.14 us, delete 0 us/op
+  f=0 ef=32: recall 0.9955, 22.9 us, delete 0 us/op
+  f=0 ef=64: recall 0.9995, 41.64 us, delete 0 us/op
+  f=0 ef=128: recall 1, 70.72 us, delete 0 us/op
+  f=0.1 ef=16: recall 0.9655, 14.33 us, delete 51.22 us/op
+  f=0.1 ef=32: recall 0.9955, 23.29 us, delete 51.22 us/op
+  f=0.1 ef=64: recall 0.9995, 41.97 us, delete 51.22 us/op
+  f=0.1 ef=128: recall 1, 74.22 us, delete 51.22 us/op
+  f=0.2 ef=16: recall 0.967, 11.97 us, delete 53.49 us/op
+  f=0.2 ef=32: recall 0.997, 24.32 us, delete 53.49 us/op
+  f=0.2 ef=64: recall 0.9995, 41.52 us, delete 53.49 us/op
+  f=0.2 ef=128: recall 1, 68.41 us, delete 53.49 us/op
+  f=0.3 ef=16: recall 0.976, 11.31 us, delete 52.92 us/op
+  f=0.3 ef=32: recall 0.9935, 23.55 us, delete 52.92 us/op
+  f=0.3 ef=64: recall 0.9945, 40.25 us, delete 52.92 us/op
+  f=0.3 ef=128: recall 1, 70.69 us, delete 52.92 us/op
+  f=0.4 ef=16: recall 0.9875, 10.87 us, delete 51.47 us/op
+  f=0.4 ef=32: recall 0.9985, 21.51 us, delete 51.47 us/op
+  f=0.4 ef=64: recall 1, 37.52 us, delete 51.47 us/op
+  f=0.4 ef=128: recall 1, 65.24 us, delete 51.47 us/op
+  f=0.5 ef=16: recall 0.977, 11.97 us, delete 50.12 us/op
+  f=0.5 ef=32: recall 0.993, 22.95 us, delete 50.12 us/op
+  f=0.5 ef=64: recall 1, 38.82 us, delete 50.12 us/op
+  f=0.5 ef=128: recall 1, 68.84 us, delete 50.12 us/op
+  (11.8 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench delete --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --policy rebuild --order random --fractions 0,0.1,0.2,0.3,0.4,0.5 --efs 16,32,64,128 --k 10 --query-reps 5 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e6_delete.csv.partial --tag e6
+built in 7.778 s; deleting in random order with rebuild
+  f=0 ef=16: recall 0.957, 14.38 us, delete 0 us/op
+  f=0 ef=32: recall 0.9955, 23.08 us, delete 0 us/op
+  f=0 ef=64: recall 0.9995, 41.7 us, delete 0 us/op
+  f=0 ef=128: recall 1, 73.28 us, delete 0 us/op
+  f=0.1 ef=16: recall 0.9625, 11.4 us, delete 0.0357 us/op
+  f=0.1 ef=32: recall 0.9965, 21.2 us, delete 0.0357 us/op
+  f=0.1 ef=64: recall 1, 39.76 us, delete 0.0357 us/op
+  f=0.1 ef=128: recall 1, 67.58 us, delete 0.0357 us/op
+  f=0.2 ef=16: recall 0.9715, 10.31 us, delete 0.04736 us/op
+  f=0.2 ef=32: recall 0.996, 19.55 us, delete 0.04736 us/op
+  f=0.2 ef=64: recall 1, 37.49 us, delete 0.04736 us/op
+  f=0.2 ef=128: recall 1, 60.98 us, delete 0.04736 us/op
+  f=0.3 ef=16: recall 0.971, 9.739 us, delete 0.04389 us/op
+  f=0.3 ef=32: recall 0.997, 17.82 us, delete 0.04389 us/op
+  f=0.3 ef=64: recall 0.9995, 33.13 us, delete 0.04389 us/op
+  f=0.3 ef=128: recall 1, 55.67 us, delete 0.04389 us/op
+  f=0.4 ef=16: recall 0.9755, 9.06 us, delete 0.0386 us/op
+  f=0.4 ef=32: recall 0.997, 15.53 us, delete 0.0386 us/op
+  f=0.4 ef=64: recall 1, 29.42 us, delete 0.0386 us/op
+  f=0.4 ef=128: recall 1, 50.41 us, delete 0.0386 us/op
+  f=0.5 ef=16: recall 0.9795, 9.24 us, delete 0.03585 us/op
+  f=0.5 ef=32: recall 0.996, 14.08 us, delete 0.03585 us/op
+  f=0.5 ef=64: recall 0.9995, 25.3 us, delete 0.03585 us/op
+  f=0.5 ef=128: recall 1, 44.76 us, delete 0.03585 us/op
+  (39.6 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench delete --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --policy tombstone --order hubs --fractions 0,0.1,0.2,0.3,0.4,0.5 --efs 16,32,64,128 --k 10 --query-reps 5 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e6_delete.csv.partial --tag e6
+built in 7.391 s; deleting in hubs order with tombstone
+  f=0 ef=16: recall 0.957, 11.26 us, delete 0 us/op
+  f=0 ef=32: recall 0.9955, 21.82 us, delete 0 us/op
+  f=0 ef=64: recall 0.9995, 39.47 us, delete 0 us/op
+  f=0 ef=128: recall 1, 67.37 us, delete 0 us/op
+  f=0.1 ef=16: recall 0.9665, 14.01 us, delete 0.03388 us/op
+  f=0.1 ef=32: recall 0.997, 25.83 us, delete 0.03388 us/op
+  f=0.1 ef=64: recall 0.9995, 45.54 us, delete 0.03388 us/op
+  f=0.1 ef=128: recall 1, 76.04 us, delete 0.03388 us/op
+  f=0.2 ef=16: recall 0.973, 16.86 us, delete 0.05018 us/op
+  f=0.2 ef=32: recall 0.998, 30.06 us, delete 0.05018 us/op
+  f=0.2 ef=64: recall 0.9995, 52.88 us, delete 0.05018 us/op
+  f=0.2 ef=128: recall 1, 85.17 us, delete 0.05018 us/op
+  f=0.3 ef=16: recall 0.981, 21.26 us, delete 0.02844 us/op
+  f=0.3 ef=32: recall 0.997, 38.93 us, delete 0.02844 us/op
+  f=0.3 ef=64: recall 0.9995, 60.87 us, delete 0.02844 us/op
+  f=0.3 ef=128: recall 1, 95.31 us, delete 0.02844 us/op
+  f=0.4 ef=16: recall 0.988, 27 us, delete 0.03694 us/op
+  f=0.4 ef=32: recall 0.9995, 44.16 us, delete 0.03694 us/op
+  f=0.4 ef=64: recall 1, 70.13 us, delete 0.03694 us/op
+  f=0.4 ef=128: recall 1, 106.6 us, delete 0.03694 us/op
+  f=0.5 ef=16: recall 0.9905, 34.91 us, delete 0.02561 us/op
+  f=0.5 ef=32: recall 0.999, 54.19 us, delete 0.02561 us/op
+  f=0.5 ef=64: recall 0.9995, 85.48 us, delete 0.02561 us/op
+  f=0.5 ef=128: recall 1, 125.3 us, delete 0.02561 us/op
+  (9.3 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench delete --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --policy repair-prune --order hubs --fractions 0,0.1,0.2,0.3,0.4,0.5 --efs 16,32,64,128 --k 10 --query-reps 5 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e6_delete.csv.partial --tag e6
+built in 7.38 s; deleting in hubs order with repair-prune
+  f=0 ef=16: recall 0.957, 11.06 us, delete 0 us/op
+  f=0 ef=32: recall 0.9955, 21.79 us, delete 0 us/op
+  f=0 ef=64: recall 0.9995, 39.45 us, delete 0 us/op
+  f=0 ef=128: recall 1, 66.52 us, delete 0 us/op
+  f=0.1 ef=16: recall 0.931, 10.45 us, delete 39.51 us/op
+  f=0.1 ef=32: recall 0.9905, 21.34 us, delete 39.51 us/op
+  f=0.1 ef=64: recall 0.9995, 40.94 us, delete 39.51 us/op
+  f=0.1 ef=128: recall 1, 72.13 us, delete 39.51 us/op
+  f=0.2 ef=16: recall 0.911, 10.75 us, delete 24.98 us/op
+  f=0.2 ef=32: recall 0.9785, 21.24 us, delete 24.98 us/op
+  f=0.2 ef=64: recall 0.9995, 41.73 us, delete 24.98 us/op
+  f=0.2 ef=128: recall 1, 73.79 us, delete 24.98 us/op
+  f=0.3 ef=16: recall 0.9205, 12.7 us, delete 20.36 us/op
+  f=0.3 ef=32: recall 0.9825, 20.86 us, delete 20.36 us/op
+  f=0.3 ef=64: recall 0.9995, 41.63 us, delete 20.36 us/op
+  f=0.3 ef=128: recall 1, 75.86 us, delete 20.36 us/op
+  f=0.4 ef=16: recall 0.916, 9.91 us, delete 18.47 us/op
+  f=0.4 ef=32: recall 0.98, 20.21 us, delete 18.47 us/op
+  f=0.4 ef=64: recall 0.994, 41.83 us, delete 18.47 us/op
+  f=0.4 ef=128: recall 0.995, 78.06 us, delete 18.47 us/op
+  f=0.5 ef=16: recall 0.923, 10.39 us, delete 16.63 us/op
+  f=0.5 ef=32: recall 0.9775, 20.79 us, delete 16.63 us/op
+  f=0.5 ef=64: recall 0.993, 45.24 us, delete 16.63 us/op
+  f=0.5 ef=128: recall 1, 91.94 us, delete 16.63 us/op
+  (10.0 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench delete --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --policy repair-fixed --order hubs --fractions 0,0.1,0.2,0.3,0.4,0.5 --efs 16,32,64,128 --k 10 --query-reps 5 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e6_delete.csv.partial --tag e6
+built in 7.386 s; deleting in hubs order with repair-fixed
+  f=0 ef=16: recall 0.957, 10.98 us, delete 0 us/op
+  f=0 ef=32: recall 0.9955, 21.63 us, delete 0 us/op
+  f=0 ef=64: recall 0.9995, 40.97 us, delete 0 us/op
+  f=0 ef=128: recall 1, 66.6 us, delete 0 us/op
+  f=0.1 ef=16: recall 0.9375, 10.82 us, delete 58.6 us/op
+  f=0.1 ef=32: recall 0.9955, 21.51 us, delete 58.6 us/op
+  f=0.1 ef=64: recall 0.9995, 39.6 us, delete 58.6 us/op
+  f=0.1 ef=128: recall 1, 69 us, delete 58.6 us/op
+  f=0.2 ef=16: recall 0.937, 10.02 us, delete 49.42 us/op
+  f=0.2 ef=32: recall 0.981, 19.76 us, delete 49.42 us/op
+  f=0.2 ef=64: recall 0.9945, 37.74 us, delete 49.42 us/op
+  f=0.2 ef=128: recall 1, 68.43 us, delete 49.42 us/op
+  f=0.3 ef=16: recall 0.906, 8.959 us, delete 33.5 us/op
+  f=0.3 ef=32: recall 0.9535, 17.06 us, delete 33.5 us/op
+  f=0.3 ef=64: recall 0.979, 36.36 us, delete 33.5 us/op
+  f=0.3 ef=128: recall 0.985, 67.89 us, delete 33.5 us/op
+  f=0.4 ef=16: recall 0.8355, 8.097 us, delete 20.38 us/op
+  f=0.4 ef=32: recall 0.88, 14.28 us, delete 20.38 us/op
+  f=0.4 ef=64: recall 0.892, 32.93 us, delete 20.38 us/op
+  f=0.4 ef=128: recall 0.935, 70.63 us, delete 20.38 us/op
+  f=0.5 ef=16: recall 0.862, 8.471 us, delete 12.22 us/op
+  f=0.5 ef=32: recall 0.8955, 14.88 us, delete 12.22 us/op
+  f=0.5 ef=64: recall 0.921, 35.78 us, delete 12.22 us/op
+  f=0.5 ef=128: recall 0.954, 79.22 us, delete 12.22 us/op
+  (10.5 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench delete --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --policy repair --order hubs --fractions 0,0.1,0.2,0.3,0.4,0.5 --efs 16,32,64,128 --k 10 --query-reps 5 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e6_delete.csv.partial --tag e6
+built in 7.389 s; deleting in hubs order with repair
+  f=0 ef=16: recall 0.957, 14.09 us, delete 0 us/op
+  f=0 ef=32: recall 0.9955, 22 us, delete 0 us/op
+  f=0 ef=64: recall 0.9995, 39.29 us, delete 0 us/op
+  f=0 ef=128: recall 1, 66.64 us, delete 0 us/op
+  f=0.1 ef=16: recall 0.9595, 12.08 us, delete 67.28 us/op
+  f=0.1 ef=32: recall 0.9975, 22.98 us, delete 67.28 us/op
+  f=0.1 ef=64: recall 0.9995, 43.35 us, delete 67.28 us/op
+  f=0.1 ef=128: recall 1, 71.52 us, delete 67.28 us/op
+  f=0.2 ef=16: recall 0.9625, 11.71 us, delete 64.94 us/op
+  f=0.2 ef=32: recall 0.9975, 23.02 us, delete 64.94 us/op
+  f=0.2 ef=64: recall 1, 42.86 us, delete 64.94 us/op
+  f=0.2 ef=128: recall 1, 73.76 us, delete 64.94 us/op
+  f=0.3 ef=16: recall 0.9695, 11.43 us, delete 55.58 us/op
+  f=0.3 ef=32: recall 0.994, 22.37 us, delete 55.58 us/op
+  f=0.3 ef=64: recall 0.9995, 41.83 us, delete 55.58 us/op
+  f=0.3 ef=128: recall 1, 74.34 us, delete 55.58 us/op
+  f=0.4 ef=16: recall 0.9825, 11.4 us, delete 56.82 us/op
+  f=0.4 ef=32: recall 0.998, 22.27 us, delete 56.82 us/op
+  f=0.4 ef=64: recall 0.999, 41.2 us, delete 56.82 us/op
+  f=0.4 ef=128: recall 1, 75.06 us, delete 56.82 us/op
+  f=0.5 ef=16: recall 0.9845, 11.24 us, delete 67.69 us/op
+  f=0.5 ef=32: recall 0.992, 22.18 us, delete 67.69 us/op
+  f=0.5 ef=64: recall 0.9935, 44.09 us, delete 67.69 us/op
+  f=0.5 ef=128: recall 1, 83.15 us, delete 67.69 us/op
+  (12.0 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench delete --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --policy rebuild --order hubs --fractions 0,0.1,0.2,0.3,0.4,0.5 --efs 16,32,64,128 --k 10 --query-reps 5 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e6_delete.csv.partial --tag e6
+built in 7.412 s; deleting in hubs order with rebuild
+  f=0 ef=16: recall 0.957, 10.99 us, delete 0 us/op
+  f=0 ef=32: recall 0.9955, 21.58 us, delete 0 us/op
+  f=0 ef=64: recall 0.9995, 39.13 us, delete 0 us/op
+  f=0 ef=128: recall 1, 66.34 us, delete 0 us/op
+  f=0.1 ef=16: recall 0.9685, 11.07 us, delete 0.03369 us/op
+  f=0.1 ef=32: recall 0.997, 21.52 us, delete 0.03369 us/op
+  f=0.1 ef=64: recall 1, 38.34 us, delete 0.03369 us/op
+  f=0.1 ef=128: recall 1, 65.55 us, delete 0.03369 us/op
+  f=0.2 ef=16: recall 0.9675, 10.32 us, delete 0.05473 us/op
+  f=0.2 ef=32: recall 0.996, 19.14 us, delete 0.05473 us/op
+  f=0.2 ef=64: recall 1, 34.86 us, delete 0.05473 us/op
+  f=0.2 ef=128: recall 1, 59.88 us, delete 0.05473 us/op
+  f=0.3 ef=16: recall 0.9755, 9.789 us, delete 0.04047 us/op
+  f=0.3 ef=32: recall 0.999, 17.65 us, delete 0.04047 us/op
+  f=0.3 ef=64: recall 1, 32.84 us, delete 0.04047 us/op
+  f=0.3 ef=128: recall 1, 55.23 us, delete 0.04047 us/op
+  f=0.4 ef=16: recall 0.98, 9.89 us, delete 0.03741 us/op
+  f=0.4 ef=32: recall 0.997, 16.17 us, delete 0.03741 us/op
+  f=0.4 ef=64: recall 1, 30.71 us, delete 0.03741 us/op
+  f=0.4 ef=128: recall 1, 52.6 us, delete 0.03741 us/op
+  f=0.5 ef=16: recall 0.985, 9.376 us, delete 0.03363 us/op
+  f=0.5 ef=32: recall 0.997, 14.5 us, delete 0.03363 us/op
+  f=0.5 ef=64: recall 1, 26.69 us, delete 0.03363 us/op
+  f=0.5 ef=128: recall 1, 46.35 us, delete 0.03363 us/op
+  (39.5 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench delete --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/uniform_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/uniform_d128_n100000_query.fvecs --dataset uniform_d128_n100000 --policy tombstone --order random --fractions 0,0.1,0.2,0.3,0.4,0.5 --efs 16,32,64,128 --k 10 --query-reps 5 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e6_delete.csv.partial --tag e6
+built in 24.27 s; deleting in random order with tombstone
+  f=0 ef=16: recall 0.1392, 58.69 us, delete 0 us/op
+  f=0 ef=32: recall 0.2303, 68.5 us, delete 0 us/op
+  f=0 ef=64: recall 0.3519, 94.07 us, delete 0 us/op
+  f=0 ef=128: recall 0.5033, 178.2 us, delete 0 us/op
+  f=0.1 ef=16: recall 0.1477, 30.33 us, delete 0.04294 us/op
+  f=0.1 ef=32: recall 0.2396, 46.9 us, delete 0.04294 us/op
+  f=0.1 ef=64: recall 0.3653, 97.07 us, delete 0.04294 us/op
+  f=0.1 ef=128: recall 0.5228, 167 us, delete 0.04294 us/op
+  f=0.2 ef=16: recall 0.1564, 31.4 us, delete 0.03261 us/op
+  f=0.2 ef=32: recall 0.2507, 51.22 us, delete 0.03261 us/op
+  f=0.2 ef=64: recall 0.3852, 97.06 us, delete 0.03261 us/op
+  f=0.2 ef=128: recall 0.5456, 252.7 us, delete 0.03261 us/op
+  f=0.3 ef=16: recall 0.1666, 36.37 us, delete 0.02898 us/op
+  f=0.3 ef=32: recall 0.2678, 56.3 us, delete 0.02898 us/op
+  f=0.3 ef=64: recall 0.4062, 105.1 us, delete 0.02898 us/op
+  f=0.3 ef=128: recall 0.569, 278.9 us, delete 0.02898 us/op
+  f=0.4 ef=16: recall 0.1801, 47.81 us, delete 0.03175 us/op
+  f=0.4 ef=32: recall 0.2873, 87.45 us, delete 0.03175 us/op
+  f=0.4 ef=64: recall 0.4323, 161.1 us, delete 0.03175 us/op
+  f=0.4 ef=128: recall 0.6008, 282.2 us, delete 0.03175 us/op
+  f=0.5 ef=16: recall 0.1995, 50.96 us, delete 0.02486 us/op
+  f=0.5 ef=32: recall 0.318, 86.59 us, delete 0.02486 us/op
+  f=0.5 ef=64: recall 0.4703, 161 us, delete 0.02486 us/op
+  f=0.5 ef=128: recall 0.6399, 297.2 us, delete 0.02486 us/op
+  (43.5 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench delete --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/uniform_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/uniform_d128_n100000_query.fvecs --dataset uniform_d128_n100000 --policy repair-prune --order random --fractions 0,0.1,0.2,0.3,0.4,0.5 --efs 16,32,64,128 --k 10 --query-reps 5 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e6_delete.csv.partial --tag e6
+built in 19.87 s; deleting in random order with repair-prune
+  f=0 ef=16: recall 0.1392, 25.24 us, delete 0 us/op
+  f=0 ef=32: recall 0.2303, 44.09 us, delete 0 us/op
+  f=0 ef=64: recall 0.3519, 78.85 us, delete 0 us/op
+  f=0 ef=128: recall 0.5033, 149.3 us, delete 0 us/op
+  f=0.1 ef=16: recall 0.1412, 23.07 us, delete 71.98 us/op
+  f=0.1 ef=32: recall 0.2315, 41.05 us, delete 71.98 us/op
+  f=0.1 ef=64: recall 0.358, 86.92 us, delete 71.98 us/op
+  f=0.1 ef=128: recall 0.5182, 150.3 us, delete 71.98 us/op
+  f=0.2 ef=16: recall 0.1386, 22.02 us, delete 60.37 us/op
+  f=0.2 ef=32: recall 0.2285, 39.97 us, delete 60.37 us/op
+  f=0.2 ef=64: recall 0.3586, 72.24 us, delete 60.37 us/op
+  f=0.2 ef=128: recall 0.5181, 152.4 us, delete 60.37 us/op
+  f=0.3 ef=16: recall 0.1424, 20.37 us, delete 53.96 us/op
+  f=0.3 ef=32: recall 0.2304, 37.43 us, delete 53.96 us/op
+  f=0.3 ef=64: recall 0.365, 67.16 us, delete 53.96 us/op
+  f=0.3 ef=128: recall 0.5207, 138.7 us, delete 53.96 us/op
+  f=0.4 ef=16: recall 0.1443, 18.34 us, delete 46.19 us/op
+  f=0.4 ef=32: recall 0.2452, 32.75 us, delete 46.19 us/op
+  f=0.4 ef=64: recall 0.3718, 58.07 us, delete 46.19 us/op
+  f=0.4 ef=128: recall 0.5303, 113.4 us, delete 46.19 us/op
+  f=0.5 ef=16: recall 0.1578, 21.8 us, delete 37.58 us/op
+  f=0.5 ef=32: recall 0.249, 34.91 us, delete 37.58 us/op
+  f=0.5 ef=64: recall 0.384, 54.68 us, delete 37.58 us/op
+  f=0.5 ef=128: recall 0.5402, 105.4 us, delete 37.58 us/op
+  (33.6 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench delete --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/uniform_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/uniform_d128_n100000_query.fvecs --dataset uniform_d128_n100000 --policy repair-fixed --order random --fractions 0,0.1,0.2,0.3,0.4,0.5 --efs 16,32,64,128 --k 10 --query-reps 5 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e6_delete.csv.partial --tag e6
+built in 19.57 s; deleting in random order with repair-fixed
+  f=0 ef=16: recall 0.1392, 23.6 us, delete 0 us/op
+  f=0 ef=32: recall 0.2303, 43.37 us, delete 0 us/op
+  f=0 ef=64: recall 0.3519, 77.91 us, delete 0 us/op
+  f=0 ef=128: recall 0.5033, 142.9 us, delete 0 us/op
+  f=0.1 ef=16: recall 0.1377, 22.49 us, delete 73.09 us/op
+  f=0.1 ef=32: recall 0.2314, 40.95 us, delete 73.09 us/op
+  f=0.1 ef=64: recall 0.3586, 77.07 us, delete 73.09 us/op
+  f=0.1 ef=128: recall 0.519, 139.4 us, delete 73.09 us/op
+  f=0.2 ef=16: recall 0.1428, 21.32 us, delete 67.88 us/op
+  f=0.2 ef=32: recall 0.2335, 37.39 us, delete 67.88 us/op
+  f=0.2 ef=64: recall 0.3654, 69.69 us, delete 67.88 us/op
+  f=0.2 ef=128: recall 0.5252, 130.2 us, delete 67.88 us/op
+  f=0.3 ef=16: recall 0.1464, 20.22 us, delete 62.3 us/op
+  f=0.3 ef=32: recall 0.2402, 35.61 us, delete 62.3 us/op
+  f=0.3 ef=64: recall 0.3728, 64.35 us, delete 62.3 us/op
+  f=0.3 ef=128: recall 0.535, 121 us, delete 62.3 us/op
+  f=0.4 ef=16: recall 0.1624, 18.13 us, delete 56.35 us/op
+  f=0.4 ef=32: recall 0.2638, 33.33 us, delete 56.35 us/op
+  f=0.4 ef=64: recall 0.3971, 60.1 us, delete 56.35 us/op
+  f=0.4 ef=128: recall 0.5555, 115.5 us, delete 56.35 us/op
+  f=0.5 ef=16: recall 0.1773, 16.57 us, delete 50.53 us/op
+  f=0.5 ef=32: recall 0.2833, 29.64 us, delete 50.53 us/op
+  f=0.5 ef=64: recall 0.4261, 53.31 us, delete 50.53 us/op
+  f=0.5 ef=128: recall 0.5809, 103.1 us, delete 50.53 us/op
+  (33.0 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench delete --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/uniform_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/uniform_d128_n100000_query.fvecs --dataset uniform_d128_n100000 --policy repair --order random --fractions 0,0.1,0.2,0.3,0.4,0.5 --efs 16,32,64,128 --k 10 --query-reps 5 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e6_delete.csv.partial --tag e6
+built in 19.21 s; deleting in random order with repair
+  f=0 ef=16: recall 0.1392, 22.91 us, delete 0 us/op
+  f=0 ef=32: recall 0.2303, 41.74 us, delete 0 us/op
+  f=0 ef=64: recall 0.3519, 75.74 us, delete 0 us/op
+  f=0 ef=128: recall 0.5033, 143.3 us, delete 0 us/op
+  f=0.1 ef=16: recall 0.1399, 22.83 us, delete 73.91 us/op
+  f=0.1 ef=32: recall 0.2331, 41.66 us, delete 73.91 us/op
+  f=0.1 ef=64: recall 0.3607, 75.82 us, delete 73.91 us/op
+  f=0.1 ef=128: recall 0.5214, 140.3 us, delete 73.91 us/op
+  f=0.2 ef=16: recall 0.1436, 21.69 us, delete 70.75 us/op
+  f=0.2 ef=32: recall 0.2335, 37.79 us, delete 70.75 us/op
+  f=0.2 ef=64: recall 0.3674, 70.47 us, delete 70.75 us/op
+  f=0.2 ef=128: recall 0.5306, 135.3 us, delete 70.75 us/op
+  f=0.3 ef=16: recall 0.1488, 20.02 us, delete 66.23 us/op
+  f=0.3 ef=32: recall 0.2474, 36.04 us, delete 66.23 us/op
+  f=0.3 ef=64: recall 0.3776, 66.99 us, delete 66.23 us/op
+  f=0.3 ef=128: recall 0.543, 126.5 us, delete 66.23 us/op
+  f=0.4 ef=16: recall 0.1677, 19.16 us, delete 62.13 us/op
+  f=0.4 ef=32: recall 0.2692, 34.85 us, delete 62.13 us/op
+  f=0.4 ef=64: recall 0.4012, 60.62 us, delete 62.13 us/op
+  f=0.4 ef=128: recall 0.5641, 115.6 us, delete 62.13 us/op
+  f=0.5 ef=16: recall 0.1865, 17.52 us, delete 56.91 us/op
+  f=0.5 ef=32: recall 0.293, 31.4 us, delete 56.91 us/op
+  f=0.5 ef=64: recall 0.4334, 55.71 us, delete 56.91 us/op
+  f=0.5 ef=128: recall 0.5924, 107 us, delete 56.91 us/op
+  (33.0 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench delete --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/uniform_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/uniform_d128_n100000_query.fvecs --dataset uniform_d128_n100000 --policy rebuild --order random --fractions 0,0.1,0.2,0.3,0.4,0.5 --efs 16,32,64,128 --k 10 --query-reps 5 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e6_delete.csv.partial --tag e6
+built in 20.1 s; deleting in random order with rebuild
+  f=0 ef=16: recall 0.1392, 23.72 us, delete 0 us/op
+  f=0 ef=32: recall 0.2303, 42.51 us, delete 0 us/op
+  f=0 ef=64: recall 0.3519, 89.47 us, delete 0 us/op
+  f=0 ef=128: recall 0.5033, 147.9 us, delete 0 us/op
+  f=0.1 ef=16: recall 0.146, 26.2 us, delete 0.03434 us/op
+  f=0.1 ef=32: recall 0.2407, 45.91 us, delete 0.03434 us/op
+  f=0.1 ef=64: recall 0.3654, 84.14 us, delete 0.03434 us/op
+  f=0.1 ef=128: recall 0.5323, 160.3 us, delete 0.03434 us/op
+  f=0.2 ef=16: recall 0.1468, 26.59 us, delete 0.04831 us/op
+  f=0.2 ef=32: recall 0.2397, 39.93 us, delete 0.04831 us/op
+  f=0.2 ef=64: recall 0.3772, 72.64 us, delete 0.04831 us/op
+  f=0.2 ef=128: recall 0.5386, 133.6 us, delete 0.04831 us/op
+  f=0.3 ef=16: recall 0.1592, 20.08 us, delete 0.04321 us/op
+  f=0.3 ef=32: recall 0.2563, 34.73 us, delete 0.04321 us/op
+  f=0.3 ef=64: recall 0.3942, 67.98 us, delete 0.04321 us/op
+  f=0.3 ef=128: recall 0.5597, 137.1 us, delete 0.04321 us/op
+  f=0.4 ef=16: recall 0.1734, 22.8 us, delete 0.04311 us/op
+  f=0.4 ef=32: recall 0.2702, 34.98 us, delete 0.04311 us/op
+  f=0.4 ef=64: recall 0.4228, 61.06 us, delete 0.04311 us/op
+  f=0.4 ef=128: recall 0.5856, 116.1 us, delete 0.04311 us/op
+  f=0.5 ef=16: recall 0.1895, 17.61 us, delete 0.03832 us/op
+  f=0.5 ef=32: recall 0.302, 30.85 us, delete 0.03832 us/op
+  f=0.5 ef=64: recall 0.4436, 54.08 us, delete 0.03832 us/op
+  f=0.5 ef=128: recall 0.6221, 108.2 us, delete 0.03832 us/op
+  (113.2 s)
+=== e6_delete done in 420 s
+=== e7_churn
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench churn --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --policy tombstone --rate 0.02 --initial 0.5 --rounds 10 --rebuild-every 5 --ef 24 --k 10 --query-reps 3 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e7_churn.csv.partial --tag e7
+  round 0: recall 0.9955, 13.16 us, tombstones 0
+  round 1: recall 0.996, 13.93 us, tombstones 1000
+  round 2: recall 0.9955, 13.54 us, tombstones 2000
+  round 3: recall 0.9955, 14.45 us, tombstones 3000
+  round 4: recall 0.9955, 14.26 us, tombstones 4000
+  round 5: recall 0.9955, 14.45 us, tombstones 5000
+  round 6: recall 0.9955, 14.47 us, tombstones 6000
+  round 7: recall 0.995, 15.35 us, tombstones 7000
+  round 8: recall 0.993, 14.94 us, tombstones 8000
+  round 9: recall 0.994, 15.33 us, tombstones 9000
+  round 10: recall 0.994, 16.41 us, tombstones 10000
+  (4.3 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench churn --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --policy repair-prune --rate 0.02 --initial 0.5 --rounds 10 --rebuild-every 5 --ef 24 --k 10 --query-reps 3 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e7_churn.csv.partial --tag e7
+  round 0: recall 0.9955, 12.91 us, tombstones 0
+  round 1: recall 0.995, 12.75 us, tombstones 1000
+  round 2: recall 0.992, 13.11 us, tombstones 2000
+  round 3: recall 0.987, 12.9 us, tombstones 3000
+  round 4: recall 0.9875, 13.47 us, tombstones 4000
+  round 5: recall 0.989, 13.19 us, tombstones 5000
+  round 6: recall 0.9885, 13.63 us, tombstones 6000
+  round 7: recall 0.9885, 13.28 us, tombstones 7000
+  round 8: recall 0.9865, 13.2 us, tombstones 8000
+  round 9: recall 0.986, 13.24 us, tombstones 9000
+  round 10: recall 0.9855, 12.96 us, tombstones 10000
+  (4.4 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench churn --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --policy repair --rate 0.02 --initial 0.5 --rounds 10 --rebuild-every 5 --ef 24 --k 10 --query-reps 3 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e7_churn.csv.partial --tag e7
+  round 0: recall 0.9955, 13.87 us, tombstones 0
+  round 1: recall 0.9965, 13.34 us, tombstones 1000
+  round 2: recall 0.9955, 17.66 us, tombstones 2000
+  round 3: recall 0.9935, 14.42 us, tombstones 3000
+  round 4: recall 0.995, 15.56 us, tombstones 4000
+  round 5: recall 0.995, 14.62 us, tombstones 5000
+  round 6: recall 0.9935, 14.15 us, tombstones 6000
+  round 7: recall 0.995, 16.31 us, tombstones 7000
+  round 8: recall 0.994, 14.93 us, tombstones 8000
+  round 9: recall 0.996, 14.18 us, tombstones 9000
+  round 10: recall 0.994, 17.29 us, tombstones 10000
+  (4.8 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench churn --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --policy rebuild --rate 0.02 --initial 0.5 --rounds 10 --rebuild-every 5 --ef 24 --k 10 --query-reps 3 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e7_churn.csv.partial --tag e7
+  round 0: recall 0.9955, 13.6 us, tombstones 0
+  round 1: recall 0.996, 14 us, tombstones 1000
+  round 2: recall 0.9955, 13.58 us, tombstones 2000
+  round 3: recall 0.9955, 13.81 us, tombstones 3000
+  round 4: recall 0.9955, 14.69 us, tombstones 4000
+  round 5: recall 0.9945, 13.61 us, tombstones 0
+  round 6: recall 0.994, 14.94 us, tombstones 1000
+  round 7: recall 0.994, 14.25 us, tombstones 2000
+  round 8: recall 0.9915, 14.32 us, tombstones 3000
+  round 9: recall 0.9935, 15.36 us, tombstones 4000
+  round 10: recall 0.9895, 13.65 us, tombstones 0
+  (9.9 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench churn --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --policy tombstone --rate 0.10 --initial 0.5 --rounds 10 --rebuild-every 5 --ef 24 --k 10 --query-reps 3 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e7_churn.csv.partial --tag e7
+  round 0: recall 0.9955, 13.55 us, tombstones 0
+  round 1: recall 0.9945, 14 us, tombstones 5000
+  round 2: recall 0.992, 21.34 us, tombstones 10000
+  round 3: recall 0.992, 17.24 us, tombstones 15000
+  round 4: recall 0.992, 19.59 us, tombstones 20000
+  round 5: recall 0.9945, 21.79 us, tombstones 25000
+  round 6: recall 0.996, 24.49 us, tombstones 30000
+  round 7: recall 0.997, 31.32 us, tombstones 35000
+  round 8: recall 0.9955, 33.01 us, tombstones 40000
+  round 9: recall 0.997, 35.05 us, tombstones 45000
+  round 10: recall 0.997, 37.44 us, tombstones 50000
+  (10.0 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench churn --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --policy repair-prune --rate 0.10 --initial 0.5 --rounds 10 --rebuild-every 5 --ef 24 --k 10 --query-reps 3 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e7_churn.csv.partial --tag e7
+  round 0: recall 0.9955, 13.91 us, tombstones 0
+  round 1: recall 0.9855, 16.44 us, tombstones 5000
+  round 2: recall 0.983, 14.1 us, tombstones 10000
+  round 3: recall 0.983, 15.83 us, tombstones 15000
+  round 4: recall 0.9775, 14.93 us, tombstones 20000
+  round 5: recall 0.982, 17.19 us, tombstones 25000
+  round 6: recall 0.986, 17.95 us, tombstones 30000
+  round 7: recall 0.9805, 16.17 us, tombstones 35000
+  round 8: recall 0.982, 17 us, tombstones 40000
+  round 9: recall 0.9775, 14.54 us, tombstones 45000
+  round 10: recall 0.9645, 16.16 us, tombstones 50000
+  (9.5 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench churn --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --policy repair --rate 0.10 --initial 0.5 --rounds 10 --rebuild-every 5 --ef 24 --k 10 --query-reps 3 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e7_churn.csv.partial --tag e7
+  round 0: recall 0.9955, 13.67 us, tombstones 0
+  round 1: recall 0.99, 15.14 us, tombstones 5000
+  round 2: recall 0.991, 15.67 us, tombstones 10000
+  round 3: recall 0.99, 54.18 us, tombstones 15000
+  round 4: recall 0.984, 15.86 us, tombstones 20000
+  round 5: recall 0.9835, 17 us, tombstones 25000
+  round 6: recall 0.99, 20.69 us, tombstones 30000
+  round 7: recall 0.985, 19.59 us, tombstones 35000
+  round 8: recall 0.991, 18.6 us, tombstones 40000
+  round 9: recall 0.989, 17.06 us, tombstones 45000
+  round 10: recall 0.989, 18.59 us, tombstones 50000
+  (10.7 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench churn --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --policy rebuild --rate 0.10 --initial 0.5 --rounds 10 --rebuild-every 5 --ef 24 --k 10 --query-reps 3 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e7_churn.csv.partial --tag e7
+  round 0: recall 0.9955, 13.38 us, tombstones 0
+  round 1: recall 0.9945, 17.71 us, tombstones 5000
+  round 2: recall 0.992, 18.66 us, tombstones 10000
+  round 3: recall 0.992, 20.5 us, tombstones 15000
+  round 4: recall 0.992, 24.7 us, tombstones 20000
+  round 5: recall 0.9945, 13.52 us, tombstones 0
+  round 6: recall 0.9955, 15.61 us, tombstones 5000
+  round 7: recall 0.9945, 23.37 us, tombstones 10000
+  round 8: recall 0.9935, 21.82 us, tombstones 15000
+  round 9: recall 0.996, 24.1 us, tombstones 20000
+  round 10: recall 0.9965, 13.55 us, tombstones 0
+  (15.5 s)
+=== e7_churn done in 69 s
+=== sift_delete
+SIFT1M not found; skipping
+=== sift_delete done in 0 s

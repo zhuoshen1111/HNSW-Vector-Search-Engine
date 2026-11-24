@@ -1,0 +1,1094 @@
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench kernel --dims 32,128,960 --reps 5 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e9_kernel.csv.partial
+  d=32 l2 scalar: 9.293 ns
+  d=32 l2 simd: 5.242 ns
+  d=32 dot scalar: 5.913 ns
+  d=32 dot simd: 4.453 ns
+  d=128 l2 scalar: 29.97 ns
+  d=128 l2 simd: 7.902 ns
+  d=128 dot scalar: 27.21 ns
+  d=128 dot simd: 7.927 ns
+  d=960 l2 scalar: 409.3 ns
+  d=960 l2 simd: 52.76 ns
+  d=960 dot scalar: 394.2 ns
+  d=960 dot simd: 51.09 ns
+  (0.5 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench topk --ns 10000,100000,1000000 --ks 1,10,100 --reps 5 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e9_topk.csv.partial
+  n=10000 k=1 quickselect: 17.54 us
+  n=10000 k=1 heap: 13.75 us
+  n=10000 k=1 fullsort: 247.8 us
+  n=10000 k=10 quickselect: 16 us
+  n=10000 k=10 heap: 12.38 us
+  n=10000 k=10 fullsort: 282.8 us
+  n=10000 k=100 quickselect: 14.54 us
+  n=10000 k=100 heap: 21.54 us
+  n=10000 k=100 fullsort: 182.9 us
+  n=100000 k=1 quickselect: 371.3 us
+  n=100000 k=1 heap: 136.1 us
+  n=100000 k=1 fullsort: 4606 us
+  n=100000 k=10 quickselect: 346.8 us
+  n=100000 k=10 heap: 125.3 us
+  n=100000 k=10 fullsort: 4618 us
+  n=100000 k=100 quickselect: 341.4 us
+  n=100000 k=100 heap: 138.5 us
+  n=100000 k=100 fullsort: 4513 us
+  n=1000000 k=1 quickselect: 3318 us
+  n=1000000 k=1 heap: 1475 us
+  n=1000000 k=1 fullsort: 5.667e+04 us
+  n=1000000 k=10 quickselect: 3453 us
+  n=1000000 k=10 heap: 1230 us
+  n=1000000 k=10 fullsort: 5.674e+04 us
+  n=1000000 k=100 quickselect: 3393 us
+  n=1000000 k=100 heap: 1526 us
+  n=1000000 k=100 fullsort: 5.701e+04 us
+  (1.2 s)
+=== e1_scale
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_gen --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n10000 --type clustered --n 10000 --nq 1000 --dim 128 --seed 1 --gt-k 100 --metric l2 --clusters 64 --latent 16 --spread 0.1 --noise 0.01
+wrote /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n10000_{base,query}.fvecs and _gt.ivecs: n=10000 nq=1000 d=128 type=clustered (generate 0.0416 s, ground truth 0.0238 s on 10 threads)
+  (0.3 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench sweep --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n10000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n10000_query.fvecs --dataset clustered_d128_n10000 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e1_scale.csv.partial --tag e1 --gt /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n10000_gt.ivecs --index hnsw --efs 10,16,24,32,48,64,96,128,192,256,384,512 --build-reps 5 --query-reps 5
+  build 1/5: 0.5042 s
+  build 2/5: 0.5048 s
+  build 3/5: 0.5052 s
+  build 4/5: 0.5014 s
+  build 5/5: 0.5203 s
+  hnsw k=10 ef=10: recall 0.9686, 3.793 us/query
+  hnsw k=10 ef=16: recall 0.9928, 5.269 us/query
+  hnsw k=10 ef=24: recall 0.9988, 6.902 us/query
+  hnsw k=10 ef=32: recall 0.9996, 8.46 us/query
+  hnsw k=10 ef=48: recall 0.9999, 11.32 us/query
+  hnsw k=10 ef=64: recall 1, 14.01 us/query
+  hnsw k=10 ef=96: recall 1, 19.19 us/query
+  hnsw k=10 ef=128: recall 1, 24.8 us/query
+  hnsw k=10 ef=192: recall 1, 37.7 us/query
+  hnsw k=10 ef=256: recall 1, 53.3 us/query
+  hnsw k=10 ef=384: recall 1, 83.23 us/query
+  hnsw k=10 ef=512: recall 1, 112.8 us/query
+  (4.8 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench sweep --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n10000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n10000_query.fvecs --dataset clustered_d128_n10000 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e1_scale.csv.partial --tag e1 --gt /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n10000_gt.ivecs --index nsw --efs 10,16,24,32,48,64,96,128,192,256,384,512 --build-reps 5 --query-reps 5
+  build 1/5: 0.5006 s
+  build 2/5: 0.4958 s
+  build 3/5: 0.4998 s
+  build 4/5: 0.4964 s
+  build 5/5: 0.4952 s
+  nsw k=10 ef=10: recall 0.9709, 5.524 us/query
+  nsw k=10 ef=16: recall 0.9921, 7.532 us/query
+  nsw k=10 ef=24: recall 0.9987, 9.383 us/query
+  nsw k=10 ef=32: recall 0.9995, 11.12 us/query
+  nsw k=10 ef=48: recall 0.9999, 14.07 us/query
+  nsw k=10 ef=64: recall 1, 16.68 us/query
+  nsw k=10 ef=96: recall 1, 21.56 us/query
+  nsw k=10 ef=128: recall 1, 26.64 us/query
+  nsw k=10 ef=192: recall 1, 40.2 us/query
+  nsw k=10 ef=256: recall 1, 55.05 us/query
+  nsw k=10 ef=384: recall 1, 85.76 us/query
+  nsw k=10 ef=512: recall 1, 114.6 us/query
+  (4.9 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench sweep --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n10000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n10000_query.fvecs --dataset clustered_d128_n10000 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e1_scale.csv.partial --tag e1 --gt /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n10000_gt.ivecs --index bruteforce --query-reps 5
+  build 1/1: 0.001136 s
+  bruteforce k=10 ef=0: recall 1, 78.25 us/query
+  (0.5 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench sweep --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e1_scale.csv.partial --tag e1 --gt /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_gt.ivecs --index hnsw --efs 10,16,24,32,48,64,96,128,192,256,384,512 --build-reps 3 --query-reps 5
+  build 1/3: 7.761 s
+  build 2/3: 7.801 s
+  build 3/3: 7.795 s
+  hnsw k=10 ef=10: recall 0.8965, 7.513 us/query
+  hnsw k=10 ef=16: recall 0.957, 11.06 us/query
+  hnsw k=10 ef=24: recall 0.9855, 17.12 us/query
+  hnsw k=10 ef=32: recall 0.9955, 22.83 us/query
+  hnsw k=10 ef=48: recall 0.9985, 31.58 us/query
+  hnsw k=10 ef=64: recall 0.9995, 42.14 us/query
+  hnsw k=10 ef=96: recall 0.9995, 57.28 us/query
+  hnsw k=10 ef=128: recall 1, 69.79 us/query
+  hnsw k=10 ef=192: recall 1, 94.6 us/query
+  hnsw k=10 ef=256: recall 1, 116.9 us/query
+  hnsw k=10 ef=384: recall 1, 155.8 us/query
+  hnsw k=10 ef=512: recall 1, 187.2 us/query
+  (24.4 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench sweep --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e1_scale.csv.partial --tag e1 --gt /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_gt.ivecs --index nsw --efs 10,16,24,32,48,64,96,128,192,256,384,512 --build-reps 3 --query-reps 5
+  build 1/3: 8.086 s
+  build 2/3: 8.079 s
+  build 3/3: 8.097 s
+  nsw k=10 ef=10: recall 0.699, 11.33 us/query
+  nsw k=10 ef=16: recall 0.8375, 18.38 us/query
+  nsw k=10 ef=24: recall 0.9255, 25.57 us/query
+  nsw k=10 ef=32: recall 0.967, 32.52 us/query
+  nsw k=10 ef=48: recall 0.9885, 45.97 us/query
+  nsw k=10 ef=64: recall 0.9945, 55.69 us/query
+  nsw k=10 ef=96: recall 0.9995, 72.54 us/query
+  nsw k=10 ef=128: recall 1, 91.37 us/query
+  nsw k=10 ef=192: recall 1, 115.2 us/query
+  nsw k=10 ef=256: recall 1, 138.7 us/query
+  nsw k=10 ef=384: recall 1, 174.6 us/query
+  nsw k=10 ef=512: recall 1, 206.3 us/query
+  (25.5 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench sweep --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e1_scale.csv.partial --tag e1 --gt /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_gt.ivecs --index bruteforce --query-reps 5
+  build 1/1: 0.01351 s
+  bruteforce k=10 ef=0: recall 1, 804.9 us/query
+  (1.0 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_gen --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n1000000 --type clustered --n 1000000 --nq 1000 --dim 128 --seed 1 --gt-k 100 --metric l2 --clusters 64 --latent 16 --spread 0.1 --noise 0.01
+wrote /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n1000000_{base,query}.fvecs and _gt.ivecs: n=1000000 nq=1000 d=128 type=clustered (generate 2.11 s, ground truth 4.74 s on 10 threads)
+  (6.9 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench sweep --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n1000000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n1000000_query.fvecs --dataset clustered_d128_n1000000 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e1_scale.csv.partial --tag e1 --gt /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n1000000_gt.ivecs --index hnsw --efs 10,16,24,32,48,64,96,128,192,256,384,512 --build-reps 1 --query-reps 5
+  build 1/1: 185 s
+  hnsw k=10 ef=10: recall 0.7995, 23.95 us/query
+  hnsw k=10 ef=16: recall 0.8874, 36.37 us/query
+  hnsw k=10 ef=24: recall 0.9441, 40.6 us/query
+  hnsw k=10 ef=32: recall 0.9689, 55.13 us/query
+  hnsw k=10 ef=48: recall 0.9887, 67.78 us/query
+  hnsw k=10 ef=64: recall 0.9945, 95.16 us/query
+  hnsw k=10 ef=96: recall 0.9984, 120.2 us/query
+  hnsw k=10 ef=128: recall 0.9987, 149.2 us/query
+  hnsw k=10 ef=192: recall 0.9989, 204.6 us/query
+  hnsw k=10 ef=256: recall 0.9999, 257 us/query
+  hnsw k=10 ef=384: recall 0.9999, 352.3 us/query
+  hnsw k=10 ef=512: recall 0.9999, 438.8 us/query
+  (196.5 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench sweep --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n1000000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n1000000_query.fvecs --dataset clustered_d128_n1000000 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e1_scale.csv.partial --tag e1 --gt /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n1000000_gt.ivecs --index nsw --efs 10,16,24,32,48,64,96,128,192,256,384,512 --build-reps 1 --query-reps 5
+  build 1/1: 210.9 s
+  nsw k=10 ef=10: recall 0.5502, 25.46 us/query
+  nsw k=10 ef=16: recall 0.7009, 38.23 us/query
+  nsw k=10 ef=24: recall 0.816, 52.96 us/query
+  nsw k=10 ef=32: recall 0.8783, 66.28 us/query
+  nsw k=10 ef=48: recall 0.9462, 90.85 us/query
+  nsw k=10 ef=64: recall 0.9682, 111 us/query
+  nsw k=10 ef=96: recall 0.983, 148 us/query
+  nsw k=10 ef=128: recall 0.9893, 180.2 us/query
+  nsw k=10 ef=192: recall 0.9946, 238.8 us/query
+  nsw k=10 ef=256: recall 0.9966, 291.5 us/query
+  nsw k=10 ef=384: recall 0.9996, 385.6 us/query
+  nsw k=10 ef=512: recall 0.9997, 472.8 us/query
+  (223.9 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench sweep --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n1000000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n1000000_query.fvecs --dataset clustered_d128_n1000000 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e1_scale.csv.partial --tag e1 --gt /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n1000000_gt.ivecs --index bruteforce --query-reps 3
+  build 1/1: 0.3198 s
+  bruteforce k=10 ef=0: recall 1, 8400 us/query
+  (34.1 s)
+=== e1_scale done in 523 s
+=== e2_params
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench sweep --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e2_params.csv.partial --tag e2 --gt /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_gt.ivecs --M 4 --efc 100 --efs 10,16,24,32,48,64,96,128,192,256,384,512 --build-reps 3 --query-reps 5
+  build 1/3: 3.711 s
+  build 2/3: 3.657 s
+  build 3/3: 3.676 s
+  hnsw k=10 ef=10: recall 0.498, 3.961 us/query
+  hnsw k=10 ef=16: recall 0.614, 4.787 us/query
+  hnsw k=10 ef=24: recall 0.7165, 7.173 us/query
+  hnsw k=10 ef=32: recall 0.777, 10.22 us/query
+  hnsw k=10 ef=48: recall 0.829, 16.14 us/query
+  hnsw k=10 ef=64: recall 0.8735, 21.34 us/query
+  hnsw k=10 ef=96: recall 0.908, 33.45 us/query
+  hnsw k=10 ef=128: recall 0.9415, 42.77 us/query
+  hnsw k=10 ef=192: recall 0.959, 64.21 us/query
+  hnsw k=10 ef=256: recall 0.971, 87.11 us/query
+  hnsw k=10 ef=384: recall 0.973, 130.6 us/query
+  hnsw k=10 ef=512: recall 0.9785, 153 us/query
+  (11.8 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench sweep --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e2_params.csv.partial --tag e2 --gt /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_gt.ivecs --M 4 --efc 200 --efs 10,16,24,32,48,64,96,128,192,256,384,512 --build-reps 3 --query-reps 5
+  build 1/3: 6.823 s
+  build 2/3: 6.979 s
+  build 3/3: 6.796 s
+  hnsw k=10 ef=10: recall 0.4625, 3.067 us/query
+  hnsw k=10 ef=16: recall 0.556, 4.681 us/query
+  hnsw k=10 ef=24: recall 0.6595, 6.658 us/query
+  hnsw k=10 ef=32: recall 0.7195, 9.544 us/query
+  hnsw k=10 ef=48: recall 0.795, 14.46 us/query
+  hnsw k=10 ef=64: recall 0.8415, 21.35 us/query
+  hnsw k=10 ef=96: recall 0.8805, 32.79 us/query
+  hnsw k=10 ef=128: recall 0.9375, 44.67 us/query
+  hnsw k=10 ef=192: recall 0.952, 66.9 us/query
+  hnsw k=10 ef=256: recall 0.9525, 85.37 us/query
+  hnsw k=10 ef=384: recall 0.964, 120.3 us/query
+  hnsw k=10 ef=512: recall 0.9735, 152.5 us/query
+  (21.3 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench sweep --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e2_params.csv.partial --tag e2 --gt /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_gt.ivecs --M 4 --efc 400 --efs 10,16,24,32,48,64,96,128,192,256,384,512 --build-reps 3 --query-reps 5
+  build 1/3: 11.33 s
+  build 2/3: 11.17 s
+  build 3/3: 11.17 s
+  hnsw k=10 ef=10: recall 0.4635, 2.687 us/query
+  hnsw k=10 ef=16: recall 0.573, 4.783 us/query
+  hnsw k=10 ef=24: recall 0.6795, 6.596 us/query
+  hnsw k=10 ef=32: recall 0.755, 8.389 us/query
+  hnsw k=10 ef=48: recall 0.8435, 14.35 us/query
+  hnsw k=10 ef=64: recall 0.8945, 19.74 us/query
+  hnsw k=10 ef=96: recall 0.9315, 31.93 us/query
+  hnsw k=10 ef=128: recall 0.954, 42.86 us/query
+  hnsw k=10 ef=192: recall 0.9635, 61.54 us/query
+  hnsw k=10 ef=256: recall 0.974, 79.3 us/query
+  hnsw k=10 ef=384: recall 0.9955, 112.7 us/query
+  hnsw k=10 ef=512: recall 0.9955, 140.9 us/query
+  (34.3 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench sweep --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e2_params.csv.partial --tag e2 --gt /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_gt.ivecs --M 8 --efc 100 --efs 10,16,24,32,48,64,96,128,192,256,384,512 --build-reps 3 --query-reps 5
+  build 1/3: 3.768 s
+  build 2/3: 3.758 s
+  build 3/3: 3.756 s
+  hnsw k=10 ef=10: recall 0.7885, 4.688 us/query
+  hnsw k=10 ef=16: recall 0.885, 6.001 us/query
+  hnsw k=10 ef=24: recall 0.9395, 9.51 us/query
+  hnsw k=10 ef=32: recall 0.9725, 12.96 us/query
+  hnsw k=10 ef=48: recall 0.991, 23.52 us/query
+  hnsw k=10 ef=64: recall 0.997, 28.16 us/query
+  hnsw k=10 ef=96: recall 0.999, 41.26 us/query
+  hnsw k=10 ef=128: recall 1, 52.7 us/query
+  hnsw k=10 ef=192: recall 1, 74.19 us/query
+  hnsw k=10 ef=256: recall 1, 92.44 us/query
+  hnsw k=10 ef=384: recall 1, 123.9 us/query
+  hnsw k=10 ef=512: recall 1, 151.3 us/query
+  (12.1 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench sweep --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e2_params.csv.partial --tag e2 --gt /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_gt.ivecs --M 8 --efc 200 --efs 10,16,24,32,48,64,96,128,192,256,384,512 --build-reps 3 --query-reps 5
+  build 1/3: 6.583 s
+  build 2/3: 6.576 s
+  build 3/3: 6.564 s
+  hnsw k=10 ef=10: recall 0.7975, 4.748 us/query
+  hnsw k=10 ef=16: recall 0.894, 6.19 us/query
+  hnsw k=10 ef=24: recall 0.945, 9.887 us/query
+  hnsw k=10 ef=32: recall 0.9735, 14.06 us/query
+  hnsw k=10 ef=48: recall 0.991, 22.07 us/query
+  hnsw k=10 ef=64: recall 0.997, 28.81 us/query
+  hnsw k=10 ef=96: recall 0.999, 41.18 us/query
+  hnsw k=10 ef=128: recall 1, 52.95 us/query
+  hnsw k=10 ef=192: recall 1, 73.79 us/query
+  hnsw k=10 ef=256: recall 1, 91.54 us/query
+  hnsw k=10 ef=384: recall 1, 124.7 us/query
+  hnsw k=10 ef=512: recall 1, 156.7 us/query
+  (20.5 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench sweep --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e2_params.csv.partial --tag e2 --gt /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_gt.ivecs --M 8 --efc 400 --efs 10,16,24,32,48,64,96,128,192,256,384,512 --build-reps 3 --query-reps 5
+  build 1/3: 11.61 s
+  build 2/3: 11.62 s
+  build 3/3: 11.61 s
+  hnsw k=10 ef=10: recall 0.7975, 4.738 us/query
+  hnsw k=10 ef=16: recall 0.893, 5.847 us/query
+  hnsw k=10 ef=24: recall 0.946, 9.821 us/query
+  hnsw k=10 ef=32: recall 0.9735, 14.43 us/query
+  hnsw k=10 ef=48: recall 0.991, 22.87 us/query
+  hnsw k=10 ef=64: recall 0.9975, 29.6 us/query
+  hnsw k=10 ef=96: recall 0.9995, 46.71 us/query
+  hnsw k=10 ef=128: recall 1, 57.73 us/query
+  hnsw k=10 ef=192: recall 1, 76.01 us/query
+  hnsw k=10 ef=256: recall 1, 94.67 us/query
+  hnsw k=10 ef=384: recall 1, 126.6 us/query
+  hnsw k=10 ef=512: recall 1, 156.7 us/query
+  (35.6 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench sweep --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e2_params.csv.partial --tag e2 --gt /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_gt.ivecs --M 16 --efc 100 --efs 10,16,24,32,48,64,96,128,192,256,384,512 --build-reps 3 --query-reps 5
+  build 1/3: 4.264 s
+  build 2/3: 4.253 s
+  build 3/3: 4.253 s
+  hnsw k=10 ef=10: recall 0.882, 7.115 us/query
+  hnsw k=10 ef=16: recall 0.946, 9.627 us/query
+  hnsw k=10 ef=24: recall 0.974, 15.15 us/query
+  hnsw k=10 ef=32: recall 0.984, 20 us/query
+  hnsw k=10 ef=48: recall 0.9885, 28.88 us/query
+  hnsw k=10 ef=64: recall 0.9895, 37.32 us/query
+  hnsw k=10 ef=96: recall 0.9945, 52.07 us/query
+  hnsw k=10 ef=128: recall 1, 64.73 us/query
+  hnsw k=10 ef=192: recall 1, 89.59 us/query
+  hnsw k=10 ef=256: recall 1, 108.6 us/query
+  hnsw k=10 ef=384: recall 1, 148.8 us/query
+  hnsw k=10 ef=512: recall 1, 174.1 us/query
+  (13.7 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench sweep --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e2_params.csv.partial --tag e2 --gt /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_gt.ivecs --M 16 --efc 200 --efs 10,16,24,32,48,64,96,128,192,256,384,512 --build-reps 3 --query-reps 5
+  build 1/3: 7.388 s
+  build 2/3: 7.387 s
+  build 3/3: 7.362 s
+  hnsw k=10 ef=10: recall 0.8965, 7.4 us/query
+  hnsw k=10 ef=16: recall 0.957, 9.974 us/query
+  hnsw k=10 ef=24: recall 0.9855, 15.31 us/query
+  hnsw k=10 ef=32: recall 0.9955, 20.11 us/query
+  hnsw k=10 ef=48: recall 0.9985, 29.22 us/query
+  hnsw k=10 ef=64: recall 0.9995, 37.42 us/query
+  hnsw k=10 ef=96: recall 0.9995, 51.74 us/query
+  hnsw k=10 ef=128: recall 1, 64.57 us/query
+  hnsw k=10 ef=192: recall 1, 89.42 us/query
+  hnsw k=10 ef=256: recall 1, 108.5 us/query
+  hnsw k=10 ef=384: recall 1, 143.5 us/query
+  hnsw k=10 ef=512: recall 1, 174.8 us/query
+  (23.1 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench sweep --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e2_params.csv.partial --tag e2 --gt /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_gt.ivecs --M 16 --efc 400 --efs 10,16,24,32,48,64,96,128,192,256,384,512 --build-reps 3 --query-reps 5
+  build 1/3: 13.04 s
+  build 2/3: 13.23 s
+  build 3/3: 13.85 s
+  hnsw k=10 ef=10: recall 0.894, 7.679 us/query
+  hnsw k=10 ef=16: recall 0.9555, 11.56 us/query
+  hnsw k=10 ef=24: recall 0.9855, 16.96 us/query
+  hnsw k=10 ef=32: recall 0.9955, 24.25 us/query
+  hnsw k=10 ef=48: recall 0.9985, 34.51 us/query
+  hnsw k=10 ef=64: recall 0.9995, 46.45 us/query
+  hnsw k=10 ef=96: recall 0.9995, 65.78 us/query
+  hnsw k=10 ef=128: recall 1, 78.2 us/query
+  hnsw k=10 ef=192: recall 1, 107.3 us/query
+  hnsw k=10 ef=256: recall 1, 129.1 us/query
+  hnsw k=10 ef=384: recall 1, 159.5 us/query
+  hnsw k=10 ef=512: recall 1, 192.2 us/query
+  (41.2 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench sweep --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e2_params.csv.partial --tag e2 --gt /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_gt.ivecs --M 32 --efc 100 --efs 10,16,24,32,48,64,96,128,192,256,384,512 --build-reps 3 --query-reps 5
+  build 1/3: 4.709 s
+  build 2/3: 4.662 s
+  build 3/3: 4.701 s
+  hnsw k=10 ef=10: recall 0.913, 8.756 us/query
+  hnsw k=10 ef=16: recall 0.9655, 12.34 us/query
+  hnsw k=10 ef=24: recall 0.9845, 18.09 us/query
+  hnsw k=10 ef=32: recall 0.9915, 23.73 us/query
+  hnsw k=10 ef=48: recall 0.994, 33.02 us/query
+  hnsw k=10 ef=64: recall 1, 41.83 us/query
+  hnsw k=10 ef=96: recall 1, 63.08 us/query
+  hnsw k=10 ef=128: recall 1, 72.16 us/query
+  hnsw k=10 ef=192: recall 1, 93.48 us/query
+  hnsw k=10 ef=256: recall 1, 114.9 us/query
+  hnsw k=10 ef=384: recall 1, 153.1 us/query
+  hnsw k=10 ef=512: recall 1, 185.7 us/query
+  (15.1 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench sweep --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e2_params.csv.partial --tag e2 --gt /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_gt.ivecs --M 32 --efc 200 --efs 10,16,24,32,48,64,96,128,192,256,384,512 --build-reps 3 --query-reps 5
+  build 1/3: 7.667 s
+  build 2/3: 7.585 s
+  build 3/3: 7.577 s
+  hnsw k=10 ef=10: recall 0.923, 8.742 us/query
+  hnsw k=10 ef=16: recall 0.976, 12.79 us/query
+  hnsw k=10 ef=24: recall 0.991, 18.88 us/query
+  hnsw k=10 ef=32: recall 0.997, 24.58 us/query
+  hnsw k=10 ef=48: recall 0.999, 34.03 us/query
+  hnsw k=10 ef=64: recall 1, 42.77 us/query
+  hnsw k=10 ef=96: recall 1, 59.04 us/query
+  hnsw k=10 ef=128: recall 1, 73.01 us/query
+  hnsw k=10 ef=192: recall 1, 97.59 us/query
+  hnsw k=10 ef=256: recall 1, 116.5 us/query
+  hnsw k=10 ef=384: recall 1, 152.1 us/query
+  hnsw k=10 ef=512: recall 1, 186.8 us/query
+  (23.9 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench sweep --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e2_params.csv.partial --tag e2 --gt /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_gt.ivecs --M 32 --efc 400 --efs 10,16,24,32,48,64,96,128,192,256,384,512 --build-reps 3 --query-reps 5
+  build 1/3: 13.73 s
+  build 2/3: 13.7 s
+  build 3/3: 13.7 s
+  hnsw k=10 ef=10: recall 0.9245, 9.213 us/query
+  hnsw k=10 ef=16: recall 0.976, 13.33 us/query
+  hnsw k=10 ef=24: recall 0.991, 19.44 us/query
+  hnsw k=10 ef=32: recall 0.997, 25.09 us/query
+  hnsw k=10 ef=48: recall 0.999, 34.89 us/query
+  hnsw k=10 ef=64: recall 1, 43.86 us/query
+  hnsw k=10 ef=96: recall 1, 60.56 us/query
+  hnsw k=10 ef=128: recall 1, 75.7 us/query
+  hnsw k=10 ef=192: recall 1, 98.61 us/query
+  hnsw k=10 ef=256: recall 1, 120.5 us/query
+  hnsw k=10 ef=384: recall 1, 157.2 us/query
+  hnsw k=10 ef=512: recall 1, 192.7 us/query
+  (42.2 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench sweep --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e2_params.csv.partial --tag e2 --gt /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_gt.ivecs --M 48 --efc 100 --efs 10,16,24,32,48,64,96,128,192,256,384,512 --build-reps 3 --query-reps 5
+  build 1/3: 4.422 s
+  build 2/3: 4.373 s
+  build 3/3: 4.367 s
+  hnsw k=10 ef=10: recall 0.92, 8.813 us/query
+  hnsw k=10 ef=16: recall 0.971, 12.57 us/query
+  hnsw k=10 ef=24: recall 0.9905, 18.64 us/query
+  hnsw k=10 ef=32: recall 0.9965, 23.84 us/query
+  hnsw k=10 ef=48: recall 0.999, 33.53 us/query
+  hnsw k=10 ef=64: recall 1, 41.51 us/query
+  hnsw k=10 ef=96: recall 1, 56.01 us/query
+  hnsw k=10 ef=128: recall 1, 69.42 us/query
+  hnsw k=10 ef=192: recall 1, 92.82 us/query
+  hnsw k=10 ef=256: recall 1, 112.9 us/query
+  hnsw k=10 ef=384: recall 1, 151.1 us/query
+  hnsw k=10 ef=512: recall 1, 184.6 us/query
+  (14.2 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench sweep --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e2_params.csv.partial --tag e2 --gt /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_gt.ivecs --M 48 --efc 200 --efs 10,16,24,32,48,64,96,128,192,256,384,512 --build-reps 3 --query-reps 5
+  build 1/3: 7.672 s
+  build 2/3: 7.608 s
+  build 3/3: 7.582 s
+  hnsw k=10 ef=10: recall 0.926, 9.08 us/query
+  hnsw k=10 ef=16: recall 0.976, 13.39 us/query
+  hnsw k=10 ef=24: recall 0.9915, 19.38 us/query
+  hnsw k=10 ef=32: recall 0.997, 24.7 us/query
+  hnsw k=10 ef=48: recall 0.999, 34.96 us/query
+  hnsw k=10 ef=64: recall 1, 43.54 us/query
+  hnsw k=10 ef=96: recall 1, 59.51 us/query
+  hnsw k=10 ef=128: recall 1, 73.25 us/query
+  hnsw k=10 ef=192: recall 1, 96.92 us/query
+  hnsw k=10 ef=256: recall 1, 118.2 us/query
+  hnsw k=10 ef=384: recall 1, 153.7 us/query
+  hnsw k=10 ef=512: recall 1, 188.3 us/query
+  (23.9 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench sweep --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e2_params.csv.partial --tag e2 --gt /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_gt.ivecs --M 48 --efc 400 --efs 10,16,24,32,48,64,96,128,192,256,384,512 --build-reps 3 --query-reps 5
+  build 1/3: 13.75 s
+  build 2/3: 13.78 s
+  build 3/3: 13.9 s
+  hnsw k=10 ef=10: recall 0.926, 10.12 us/query
+  hnsw k=10 ef=16: recall 0.976, 14.28 us/query
+  hnsw k=10 ef=24: recall 0.9915, 20.68 us/query
+  hnsw k=10 ef=32: recall 0.997, 26.2 us/query
+  hnsw k=10 ef=48: recall 0.999, 36.25 us/query
+  hnsw k=10 ef=64: recall 1, 45.68 us/query
+  hnsw k=10 ef=96: recall 1, 61.22 us/query
+  hnsw k=10 ef=128: recall 1, 76.16 us/query
+  hnsw k=10 ef=192: recall 1, 99.39 us/query
+  hnsw k=10 ef=256: recall 1, 122.1 us/query
+  hnsw k=10 ef=384: recall 1, 166.7 us/query
+  hnsw k=10 ef=512: recall 1, 194.8 us/query
+  (42.5 s)
+=== e2_params done in 375 s
+=== e3_dim
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_gen --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d32_n100000 --type clustered --n 100000 --nq 1000 --dim 32 --seed 1 --gt-k 100 --metric l2 --clusters 64 --latent 16 --spread 0.1 --noise 0.01
+wrote /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d32_n100000_{base,query}.fvecs and _gt.ivecs: n=100000 nq=1000 d=32 type=clustered (generate 0.0951 s, ground truth 0.082 s on 10 threads)
+  (0.2 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench sweep --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d32_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d32_n100000_query.fvecs --dataset clustered_d32_n100000 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e3_dim.csv.partial --tag e3 --gt /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d32_n100000_gt.ivecs --efs 10,16,24,32,48,64,96,128,192,256,384,512 --build-reps 3 --query-reps 5
+  build 1/3: 4.423 s
+  build 2/3: 4.528 s
+  build 3/3: 4.345 s
+  hnsw k=10 ef=10: recall 0.9285, 2.908 us/query
+  hnsw k=10 ef=16: recall 0.9769, 4.348 us/query
+  hnsw k=10 ef=24: recall 0.9929, 6.328 us/query
+  hnsw k=10 ef=32: recall 0.9977, 8.39 us/query
+  hnsw k=10 ef=48: recall 0.9993, 12.3 us/query
+  hnsw k=10 ef=64: recall 1, 16.72 us/query
+  hnsw k=10 ef=96: recall 1, 23.38 us/query
+  hnsw k=10 ef=128: recall 1, 30.23 us/query
+  hnsw k=10 ef=192: recall 1, 43.25 us/query
+  hnsw k=10 ef=256: recall 1, 55 us/query
+  hnsw k=10 ef=384: recall 1, 77.26 us/query
+  hnsw k=10 ef=512: recall 1, 100.7 us/query
+  (15.6 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench sweep --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d32_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d32_n100000_query.fvecs --dataset clustered_d32_n100000 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e3_dim.csv.partial --tag e3 --gt /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d32_n100000_gt.ivecs --index bruteforce --query-reps 5
+  build 1/1: 0.004923 s
+  bruteforce k=10 ef=0: recall 1, 301.6 us/query
+  (1.8 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench sweep --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e3_dim.csv.partial --tag e3 --gt /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_gt.ivecs --efs 10,16,24,32,48,64,96,128,192,256,384,512 --build-reps 3 --query-reps 5
+  build 1/3: 7.36 s
+  build 2/3: 7.341 s
+  build 3/3: 7.349 s
+  hnsw k=10 ef=10: recall 0.8965, 7.374 us/query
+  hnsw k=10 ef=16: recall 0.957, 10.15 us/query
+  hnsw k=10 ef=24: recall 0.9855, 15.99 us/query
+  hnsw k=10 ef=32: recall 0.9955, 20.98 us/query
+  hnsw k=10 ef=48: recall 0.9985, 29.98 us/query
+  hnsw k=10 ef=64: recall 0.9995, 38.5 us/query
+  hnsw k=10 ef=96: recall 0.9995, 52.53 us/query
+  hnsw k=10 ef=128: recall 1, 65.9 us/query
+  hnsw k=10 ef=192: recall 1, 88.9 us/query
+  hnsw k=10 ef=256: recall 1, 107.1 us/query
+  hnsw k=10 ef=384: recall 1, 143.6 us/query
+  hnsw k=10 ef=512: recall 1, 172.9 us/query
+  (23.0 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench sweep --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e3_dim.csv.partial --tag e3 --gt /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_gt.ivecs --index bruteforce --query-reps 5
+  build 1/1: 0.0131 s
+  bruteforce k=10 ef=0: recall 1, 784.8 us/query
+  (1.0 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_gen --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d960_n100000 --type clustered --n 100000 --nq 1000 --dim 960 --seed 1 --gt-k 100 --metric l2 --clusters 64 --latent 16 --spread 0.1 --noise 0.01
+wrote /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d960_n100000_{base,query}.fvecs and _gt.ivecs: n=100000 nq=1000 d=960 type=clustered (generate 1.8 s, ground truth 3.05 s on 10 threads)
+  (4.9 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench sweep --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d960_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d960_n100000_query.fvecs --dataset clustered_d960_n100000 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e3_dim.csv.partial --tag e3 --gt /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d960_n100000_gt.ivecs --efs 10,16,24,32,48,64,96,128,192,256,384,512 --build-reps 3 --query-reps 5
+  build 1/3: 29.54 s
+  build 2/3: 29.35 s
+  build 3/3: 29.33 s
+  hnsw k=10 ef=10: recall 0.8852, 66.61 us/query
+  hnsw k=10 ef=16: recall 0.9504, 87.68 us/query
+  hnsw k=10 ef=24: recall 0.9818, 113.9 us/query
+  hnsw k=10 ef=32: recall 0.9918, 136.8 us/query
+  hnsw k=10 ef=48: recall 0.9981, 176.6 us/query
+  hnsw k=10 ef=64: recall 0.9997, 210.1 us/query
+  hnsw k=10 ef=96: recall 1, 264 us/query
+  hnsw k=10 ef=128: recall 1, 306 us/query
+  hnsw k=10 ef=192: recall 1, 367.9 us/query
+  hnsw k=10 ef=256: recall 1, 412.2 us/query
+  hnsw k=10 ef=384: recall 1, 474.7 us/query
+  hnsw k=10 ef=512: recall 1, 520.7 us/query
+  (107.3 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench sweep --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d960_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d960_n100000_query.fvecs --dataset clustered_d960_n100000 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e3_dim.csv.partial --tag e3 --gt /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d960_n100000_gt.ivecs --index bruteforce --query-reps 5
+  build 1/1: 0.08813 s
+  bruteforce k=10 ef=0: recall 1, 5849 us/query
+  (35.3 s)
+=== e3_dim done in 189 s
+=== e4_k
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench sweep --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e4_k.csv.partial --tag e4 --gt /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_gt.ivecs --ks 1,10,100 --efs 10,16,24,32,48,64,96,128,192,256,384,512,768,1024 --query-reps 5
+  build 1/1: 7.806 s
+  hnsw k=1 ef=10: recall 0.94, 7.619 us/query
+  hnsw k=1 ef=16: recall 0.99, 10.46 us/query
+  hnsw k=1 ef=24: recall 1, 16.7 us/query
+  hnsw k=1 ef=32: recall 1, 21.64 us/query
+  hnsw k=1 ef=48: recall 1, 31.18 us/query
+  hnsw k=1 ef=64: recall 1, 39.46 us/query
+  hnsw k=1 ef=96: recall 1, 54 us/query
+  hnsw k=1 ef=128: recall 1, 68.77 us/query
+  hnsw k=1 ef=192: recall 1, 92.07 us/query
+  hnsw k=1 ef=256: recall 1, 113.6 us/query
+  hnsw k=1 ef=384: recall 1, 150 us/query
+  hnsw k=1 ef=512: recall 1, 183 us/query
+  hnsw k=1 ef=768: recall 1, 242.2 us/query
+  hnsw k=1 ef=1024: recall 1, 292.5 us/query
+  hnsw k=10 ef=10: recall 0.8965, 8.388 us/query
+  hnsw k=10 ef=16: recall 0.957, 10.65 us/query
+  hnsw k=10 ef=24: recall 0.9855, 16.19 us/query
+  hnsw k=10 ef=32: recall 0.9955, 21.75 us/query
+  hnsw k=10 ef=48: recall 0.9985, 31.11 us/query
+  hnsw k=10 ef=64: recall 0.9995, 39.65 us/query
+  hnsw k=10 ef=96: recall 0.9995, 54.28 us/query
+  hnsw k=10 ef=128: recall 1, 68.85 us/query
+  hnsw k=10 ef=192: recall 1, 92.55 us/query
+  hnsw k=10 ef=256: recall 1, 112.7 us/query
+  hnsw k=10 ef=384: recall 1, 150.7 us/query
+  hnsw k=10 ef=512: recall 1, 182.6 us/query
+  hnsw k=10 ef=768: recall 1, 237.8 us/query
+  hnsw k=10 ef=1024: recall 1, 290.2 us/query
+  hnsw k=100 ef=10: recall 0.9988, 57.26 us/query
+  hnsw k=100 ef=16: recall 0.9988, 56.3 us/query
+  hnsw k=100 ef=24: recall 0.9988, 55.59 us/query
+  hnsw k=100 ef=32: recall 0.9988, 56.24 us/query
+  hnsw k=100 ef=48: recall 0.9988, 55.8 us/query
+  hnsw k=100 ef=64: recall 0.9988, 55.48 us/query
+  hnsw k=100 ef=96: recall 0.9988, 55.28 us/query
+  hnsw k=100 ef=128: recall 0.9997, 68.87 us/query
+  hnsw k=100 ef=192: recall 0.9999, 91.98 us/query
+  hnsw k=100 ef=256: recall 1, 113 us/query
+  hnsw k=100 ef=384: recall 1, 149.2 us/query
+  hnsw k=100 ef=512: recall 1, 182 us/query
+  hnsw k=100 ef=768: recall 1, 239.5 us/query
+  hnsw k=100 ef=1024: recall 1, 287.1 us/query
+  (12.9 s)
+=== e4_k done in 13 s
+=== e5_ablation
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench sweep --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e5_ablation.csv.partial --tag e5 --gt /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_gt.ivecs --index hnsw --select heuristic --efs 10,16,24,32,48,64,96,128,192,256,384,512,768,1024 --query-reps 5
+  build 1/1: 7.603 s
+  hnsw k=10 ef=10: recall 0.8965, 7.336 us/query
+  hnsw k=10 ef=16: recall 0.957, 10.02 us/query
+  hnsw k=10 ef=24: recall 0.9855, 15.7 us/query
+  hnsw k=10 ef=32: recall 0.9955, 20.98 us/query
+  hnsw k=10 ef=48: recall 0.9985, 37.96 us/query
+  hnsw k=10 ef=64: recall 0.9995, 43.76 us/query
+  hnsw k=10 ef=96: recall 0.9995, 53.77 us/query
+  hnsw k=10 ef=128: recall 1, 65.76 us/query
+  hnsw k=10 ef=192: recall 1, 90.49 us/query
+  hnsw k=10 ef=256: recall 1, 108.6 us/query
+  hnsw k=10 ef=384: recall 1, 142.6 us/query
+  hnsw k=10 ef=512: recall 1, 175.5 us/query
+  hnsw k=10 ef=768: recall 1, 230.4 us/query
+  hnsw k=10 ef=1024: recall 1, 278.7 us/query
+  (9.2 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench sweep --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e5_ablation.csv.partial --tag e5 --gt /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_gt.ivecs --index hnsw --select simple --efs 10,16,24,32,48,64,96,128,192,256,384,512,768,1024 --query-reps 5
+  build 1/1: 6.73 s
+  hnsw k=10 ef=10: recall 0.8765, 7.796 us/query
+  hnsw k=10 ef=16: recall 0.928, 10.94 us/query
+  hnsw k=10 ef=24: recall 0.9455, 16.96 us/query
+  hnsw k=10 ef=32: recall 0.9535, 21.51 us/query
+  hnsw k=10 ef=48: recall 0.962, 30.66 us/query
+  hnsw k=10 ef=64: recall 0.964, 38.13 us/query
+  hnsw k=10 ef=96: recall 0.9645, 51.65 us/query
+  hnsw k=10 ef=128: recall 0.9695, 64.94 us/query
+  hnsw k=10 ef=192: recall 0.9695, 86.1 us/query
+  hnsw k=10 ef=256: recall 0.9745, 107.7 us/query
+  hnsw k=10 ef=384: recall 0.975, 142.2 us/query
+  hnsw k=10 ef=512: recall 0.975, 176.7 us/query
+  hnsw k=10 ef=768: recall 0.98, 235.4 us/query
+  hnsw k=10 ef=1024: recall 0.985, 287.3 us/query
+  (8.3 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench sweep --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e5_ablation.csv.partial --tag e5 --gt /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_gt.ivecs --index nsw --select heuristic --efs 10,16,24,32,48,64,96,128,192,256,384,512,768,1024 --query-reps 5
+  build 1/1: 7.83 s
+  nsw k=10 ef=10: recall 0.699, 10.16 us/query
+  nsw k=10 ef=16: recall 0.8375, 16.59 us/query
+  nsw k=10 ef=24: recall 0.9255, 23.61 us/query
+  nsw k=10 ef=32: recall 0.967, 30.61 us/query
+  nsw k=10 ef=48: recall 0.9885, 41.31 us/query
+  nsw k=10 ef=64: recall 0.9945, 50.54 us/query
+  nsw k=10 ef=96: recall 0.9995, 67.26 us/query
+  nsw k=10 ef=128: recall 1, 80.51 us/query
+  nsw k=10 ef=192: recall 1, 104 us/query
+  nsw k=10 ef=256: recall 1, 126.9 us/query
+  nsw k=10 ef=384: recall 1, 162.3 us/query
+  nsw k=10 ef=512: recall 1, 193.4 us/query
+  nsw k=10 ef=768: recall 1, 248.2 us/query
+  nsw k=10 ef=1024: recall 1, 297.9 us/query
+  (9.6 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench sweep --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e5_ablation.csv.partial --tag e5 --gt /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_gt.ivecs --index nsw --select simple --efs 10,16,24,32,48,64,96,128,192,256,384,512,768,1024 --query-reps 5
+  build 1/1: 8.801 s
+  nsw k=10 ef=10: recall 0.5565, 11.35 us/query
+  nsw k=10 ef=16: recall 0.7325, 18.56 us/query
+  nsw k=10 ef=24: recall 0.835, 27.31 us/query
+  nsw k=10 ef=32: recall 0.868, 35.55 us/query
+  nsw k=10 ef=48: recall 0.946, 48.48 us/query
+  nsw k=10 ef=64: recall 0.9535, 58.21 us/query
+  nsw k=10 ef=96: recall 0.9835, 77.85 us/query
+  nsw k=10 ef=128: recall 0.9885, 92.21 us/query
+  nsw k=10 ef=192: recall 0.9985, 121.4 us/query
+  nsw k=10 ef=256: recall 0.9985, 144.3 us/query
+  nsw k=10 ef=384: recall 0.9985, 182.2 us/query
+  nsw k=10 ef=512: recall 0.9985, 216.3 us/query
+  nsw k=10 ef=768: recall 0.9985, 271 us/query
+  nsw k=10 ef=1024: recall 0.9995, 325 us/query
+  (10.8 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_gen --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/uniform_d128_n100000 --type uniform --n 100000 --nq 1000 --dim 128 --seed 1 --gt-k 100 --metric l2
+wrote /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/uniform_d128_n100000_{base,query}.fvecs and _gt.ivecs: n=100000 nq=1000 d=128 type=uniform (generate 0.135 s, ground truth 0.278 s on 10 threads)
+  (0.4 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench sweep --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/uniform_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/uniform_d128_n100000_query.fvecs --dataset uniform_d128_n100000 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e5_ablation.csv.partial --tag e5 --gt /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/uniform_d128_n100000_gt.ivecs --index hnsw --select heuristic --efs 10,16,24,32,48,64,96,128,192,256,384,512,768,1024 --query-reps 5
+  build 1/1: 19.07 s
+  hnsw k=10 ef=10: recall 0.0969, 14.44 us/query
+  hnsw k=10 ef=16: recall 0.1392, 21.77 us/query
+  hnsw k=10 ef=24: recall 0.1883, 30.63 us/query
+  hnsw k=10 ef=32: recall 0.2303, 39.84 us/query
+  hnsw k=10 ef=48: recall 0.2947, 57.3 us/query
+  hnsw k=10 ef=64: recall 0.3519, 75.14 us/query
+  hnsw k=10 ef=96: recall 0.4389, 106.8 us/query
+  hnsw k=10 ef=128: recall 0.5033, 141.3 us/query
+  hnsw k=10 ef=192: recall 0.6068, 211.6 us/query
+  hnsw k=10 ef=256: recall 0.6755, 282.1 us/query
+  hnsw k=10 ef=384: recall 0.7679, 413.5 us/query
+  hnsw k=10 ef=512: recall 0.8196, 546.2 us/query
+  hnsw k=10 ef=768: recall 0.8864, 807.6 us/query
+  hnsw k=10 ef=1024: recall 0.9188, 1057 us/query
+  (42.0 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench sweep --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/uniform_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/uniform_d128_n100000_query.fvecs --dataset uniform_d128_n100000 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e5_ablation.csv.partial --tag e5 --gt /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/uniform_d128_n100000_gt.ivecs --index hnsw --select simple --efs 10,16,24,32,48,64,96,128,192,256,384,512,768,1024 --query-reps 5
+  build 1/1: 15.75 s
+  hnsw k=10 ef=10: recall 0.1019, 14.03 us/query
+  hnsw k=10 ef=16: recall 0.1479, 21.07 us/query
+  hnsw k=10 ef=24: recall 0.1975, 29.44 us/query
+  hnsw k=10 ef=32: recall 0.234, 37.68 us/query
+  hnsw k=10 ef=48: recall 0.2999, 54.82 us/query
+  hnsw k=10 ef=64: recall 0.3616, 70.65 us/query
+  hnsw k=10 ef=96: recall 0.4455, 102.3 us/query
+  hnsw k=10 ef=128: recall 0.5113, 141.2 us/query
+  hnsw k=10 ef=192: recall 0.6099, 198 us/query
+  hnsw k=10 ef=256: recall 0.675, 268.9 us/query
+  hnsw k=10 ef=384: recall 0.7537, 385.8 us/query
+  hnsw k=10 ef=512: recall 0.8089, 513.4 us/query
+  hnsw k=10 ef=768: recall 0.8707, 764.6 us/query
+  hnsw k=10 ef=1024: recall 0.903, 995.4 us/query
+  (37.4 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench sweep --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/uniform_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/uniform_d128_n100000_query.fvecs --dataset uniform_d128_n100000 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e5_ablation.csv.partial --tag e5 --gt /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/uniform_d128_n100000_gt.ivecs --index nsw --select heuristic --efs 10,16,24,32,48,64,96,128,192,256,384,512,768,1024 --query-reps 5
+  build 1/1: 18.51 s
+  nsw k=10 ef=10: recall 0.0934, 13.98 us/query
+  nsw k=10 ef=16: recall 0.136, 21.74 us/query
+  nsw k=10 ef=24: recall 0.1807, 31.38 us/query
+  nsw k=10 ef=32: recall 0.2212, 40.7 us/query
+  nsw k=10 ef=48: recall 0.2872, 57.95 us/query
+  nsw k=10 ef=64: recall 0.3444, 74.47 us/query
+  nsw k=10 ef=96: recall 0.4361, 109.2 us/query
+  nsw k=10 ef=128: recall 0.5008, 141.2 us/query
+  nsw k=10 ef=192: recall 0.6023, 207 us/query
+  nsw k=10 ef=256: recall 0.673, 280.1 us/query
+  nsw k=10 ef=384: recall 0.7619, 413.6 us/query
+  nsw k=10 ef=512: recall 0.8169, 546.4 us/query
+  nsw k=10 ef=768: recall 0.8852, 813 us/query
+  nsw k=10 ef=1024: recall 0.9185, 1064 us/query
+  (41.6 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench sweep --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/uniform_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/uniform_d128_n100000_query.fvecs --dataset uniform_d128_n100000 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e5_ablation.csv.partial --tag e5 --gt /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/uniform_d128_n100000_gt.ivecs --index nsw --select simple --efs 10,16,24,32,48,64,96,128,192,256,384,512,768,1024 --query-reps 5
+  build 1/1: 15.18 s
+  nsw k=10 ef=10: recall 0.0955, 13.3 us/query
+  nsw k=10 ef=16: recall 0.1432, 20.27 us/query
+  nsw k=10 ef=24: recall 0.1936, 29.87 us/query
+  nsw k=10 ef=32: recall 0.2339, 38.17 us/query
+  nsw k=10 ef=48: recall 0.3017, 55.22 us/query
+  nsw k=10 ef=64: recall 0.3574, 70.55 us/query
+  nsw k=10 ef=96: recall 0.4444, 100.9 us/query
+  nsw k=10 ef=128: recall 0.5067, 134.1 us/query
+  nsw k=10 ef=192: recall 0.6015, 197.4 us/query
+  nsw k=10 ef=256: recall 0.669, 260.2 us/query
+  nsw k=10 ef=384: recall 0.751, 387.7 us/query
+  nsw k=10 ef=512: recall 0.8061, 513.1 us/query
+  nsw k=10 ef=768: recall 0.8712, 757.9 us/query
+  nsw k=10 ef=1024: recall 0.9028, 999.1 us/query
+  (36.7 s)
+=== e5_ablation done in 196 s
+=== e6_delete
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench delete --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --policy tombstone --order random --fractions 0,0.1,0.2,0.3,0.4,0.5 --efs 16,32,64,128 --k 10 --query-reps 5 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e6_delete.csv.partial --tag e6
+built in 7.698 s; deleting in random order with tombstone
+  f=0 ef=16: recall 0.957, 10.72 us, delete 0 us/op
+  f=0 ef=32: recall 0.9955, 22.15 us, delete 0 us/op
+  f=0 ef=64: recall 0.9995, 39.5 us, delete 0 us/op
+  f=0 ef=128: recall 1, 65.44 us, delete 0 us/op
+  f=0.1 ef=16: recall 0.9635, 12.91 us, delete 0.03189 us/op
+  f=0.1 ef=32: recall 0.996, 23.77 us, delete 0.03189 us/op
+  f=0.1 ef=64: recall 0.9995, 43.07 us, delete 0.03189 us/op
+  f=0.1 ef=128: recall 1, 72.53 us, delete 0.03189 us/op
+  f=0.2 ef=16: recall 0.974, 13.86 us, delete 0.02999 us/op
+  f=0.2 ef=32: recall 0.998, 26.09 us, delete 0.02999 us/op
+  f=0.2 ef=64: recall 0.9995, 49.16 us, delete 0.02999 us/op
+  f=0.2 ef=128: recall 1, 86.6 us, delete 0.02999 us/op
+  f=0.3 ef=16: recall 0.979, 15.72 us, delete 0.02612 us/op
+  f=0.3 ef=32: recall 0.9995, 29.53 us, delete 0.02612 us/op
+  f=0.3 ef=64: recall 1, 52.13 us, delete 0.02612 us/op
+  f=0.3 ef=128: recall 1, 86.29 us, delete 0.02612 us/op
+  f=0.4 ef=16: recall 0.984, 18.71 us, delete 0.02627 us/op
+  f=0.4 ef=32: recall 0.9995, 32.5 us, delete 0.02627 us/op
+  f=0.4 ef=64: recall 1, 57.71 us, delete 0.02627 us/op
+  f=0.4 ef=128: recall 1, 97.14 us, delete 0.02627 us/op
+  f=0.5 ef=16: recall 0.991, 22.19 us, delete 0.02284 us/op
+  f=0.5 ef=32: recall 1, 37.95 us, delete 0.02284 us/op
+  f=0.5 ef=64: recall 1, 64.25 us, delete 0.02284 us/op
+  f=0.5 ef=128: recall 1, 104.9 us, delete 0.02284 us/op
+  (9.4 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench delete --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --policy repair --order random --fractions 0,0.1,0.2,0.3,0.4,0.5 --efs 16,32,64,128 --k 10 --query-reps 5 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e6_delete.csv.partial --tag e6
+built in 7.456 s; deleting in random order with repair
+  f=0 ef=16: recall 0.957, 10.97 us, delete 0 us/op
+  f=0 ef=32: recall 0.9955, 22.13 us, delete 0 us/op
+  f=0 ef=64: recall 0.9995, 40 us, delete 0 us/op
+  f=0 ef=128: recall 1, 68.31 us, delete 0 us/op
+  f=0.1 ef=16: recall 0.9385, 10.49 us, delete 30.3 us/op
+  f=0.1 ef=32: recall 0.989, 20.37 us, delete 30.3 us/op
+  f=0.1 ef=64: recall 0.999, 38.67 us, delete 30.3 us/op
+  f=0.1 ef=128: recall 1, 65.44 us, delete 30.3 us/op
+  f=0.2 ef=16: recall 0.9345, 9.955 us, delete 21.44 us/op
+  f=0.2 ef=32: recall 0.9875, 20.25 us, delete 21.44 us/op
+  f=0.2 ef=64: recall 0.9995, 38.14 us, delete 21.44 us/op
+  f=0.2 ef=128: recall 1, 66.34 us, delete 21.44 us/op
+  f=0.3 ef=16: recall 0.9365, 10.51 us, delete 18.4 us/op
+  f=0.3 ef=32: recall 0.992, 19.19 us, delete 18.4 us/op
+  f=0.3 ef=64: recall 0.9995, 54 us, delete 18.4 us/op
+  f=0.3 ef=128: recall 1, 78.34 us, delete 18.4 us/op
+  f=0.4 ef=16: recall 0.9375, 13.11 us, delete 17.56 us/op
+  f=0.4 ef=32: recall 0.988, 23.83 us, delete 17.56 us/op
+  f=0.4 ef=64: recall 0.998, 43.01 us, delete 17.56 us/op
+  f=0.4 ef=128: recall 1, 70.43 us, delete 17.56 us/op
+  f=0.5 ef=16: recall 0.95, 11.02 us, delete 14.96 us/op
+  f=0.5 ef=32: recall 0.993, 19.33 us, delete 14.96 us/op
+  f=0.5 ef=64: recall 1, 36.46 us, delete 14.96 us/op
+  f=0.5 ef=128: recall 1, 66.11 us, delete 14.96 us/op
+  (9.9 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench delete --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --policy rebuild --order random --fractions 0,0.1,0.2,0.3,0.4,0.5 --efs 16,32,64,128 --k 10 --query-reps 5 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e6_delete.csv.partial --tag e6
+built in 7.876 s; deleting in random order with rebuild
+  f=0 ef=16: recall 0.957, 11.1 us, delete 0 us/op
+  f=0 ef=32: recall 0.9955, 21.77 us, delete 0 us/op
+  f=0 ef=64: recall 0.9995, 39.28 us, delete 0 us/op
+  f=0 ef=128: recall 1, 67.15 us, delete 0 us/op
+  f=0.1 ef=16: recall 0.9625, 10.16 us, delete 0.03167 us/op
+  f=0.1 ef=32: recall 0.9965, 19.98 us, delete 0.03167 us/op
+  f=0.1 ef=64: recall 1, 36.82 us, delete 0.03167 us/op
+  f=0.1 ef=128: recall 1, 61.44 us, delete 0.03167 us/op
+  f=0.2 ef=16: recall 0.9715, 9.903 us, delete 0.04668 us/op
+  f=0.2 ef=32: recall 0.996, 19.18 us, delete 0.04668 us/op
+  f=0.2 ef=64: recall 1, 34.81 us, delete 0.04668 us/op
+  f=0.2 ef=128: recall 1, 58.52 us, delete 0.04668 us/op
+  f=0.3 ef=16: recall 0.971, 9.329 us, delete 0.0409 us/op
+  f=0.3 ef=32: recall 0.997, 17.36 us, delete 0.0409 us/op
+  f=0.3 ef=64: recall 0.9995, 32.29 us, delete 0.0409 us/op
+  f=0.3 ef=128: recall 1, 55.57 us, delete 0.0409 us/op
+  f=0.4 ef=16: recall 0.9755, 9.928 us, delete 0.03743 us/op
+  f=0.4 ef=32: recall 0.997, 15.66 us, delete 0.03743 us/op
+  f=0.4 ef=64: recall 1, 29.4 us, delete 0.03743 us/op
+  f=0.4 ef=128: recall 1, 51.47 us, delete 0.03743 us/op
+  f=0.5 ef=16: recall 0.9795, 8.004 us, delete 0.03688 us/op
+  f=0.5 ef=32: recall 0.996, 13.43 us, delete 0.03688 us/op
+  f=0.5 ef=64: recall 0.9995, 24.42 us, delete 0.03688 us/op
+  f=0.5 ef=128: recall 1, 42.34 us, delete 0.03688 us/op
+  (38.7 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench delete --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --policy tombstone --order hubs --fractions 0,0.1,0.2,0.3,0.4,0.5 --efs 16,32,64,128 --k 10 --query-reps 5 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e6_delete.csv.partial --tag e6
+built in 7.333 s; deleting in hubs order with tombstone
+  f=0 ef=16: recall 0.957, 10.94 us, delete 0 us/op
+  f=0 ef=32: recall 0.9955, 21.51 us, delete 0 us/op
+  f=0 ef=64: recall 0.9995, 39.94 us, delete 0 us/op
+  f=0 ef=128: recall 1, 67.36 us, delete 0 us/op
+  f=0.1 ef=16: recall 0.9665, 13.98 us, delete 0.03377 us/op
+  f=0.1 ef=32: recall 0.997, 26.13 us, delete 0.03377 us/op
+  f=0.1 ef=64: recall 0.9995, 46.05 us, delete 0.03377 us/op
+  f=0.1 ef=128: recall 1, 75.6 us, delete 0.03377 us/op
+  f=0.2 ef=16: recall 0.973, 16.98 us, delete 0.0503 us/op
+  f=0.2 ef=32: recall 0.998, 29.8 us, delete 0.0503 us/op
+  f=0.2 ef=64: recall 0.9995, 51.71 us, delete 0.0503 us/op
+  f=0.2 ef=128: recall 1, 84.8 us, delete 0.0503 us/op
+  f=0.3 ef=16: recall 0.981, 21.33 us, delete 0.02844 us/op
+  f=0.3 ef=32: recall 0.997, 36.14 us, delete 0.02844 us/op
+  f=0.3 ef=64: recall 0.9995, 61.4 us, delete 0.02844 us/op
+  f=0.3 ef=128: recall 1, 95.82 us, delete 0.02844 us/op
+  f=0.4 ef=16: recall 0.988, 27.04 us, delete 0.0365 us/op
+  f=0.4 ef=32: recall 0.9995, 43.31 us, delete 0.0365 us/op
+  f=0.4 ef=64: recall 1, 71.99 us, delete 0.0365 us/op
+  f=0.4 ef=128: recall 1, 109.2 us, delete 0.0365 us/op
+  f=0.5 ef=16: recall 0.9905, 34.71 us, delete 0.02438 us/op
+  f=0.5 ef=32: recall 0.999, 54.17 us, delete 0.02438 us/op
+  f=0.5 ef=64: recall 0.9995, 85.73 us, delete 0.02438 us/op
+  f=0.5 ef=128: recall 1, 125.7 us, delete 0.02438 us/op
+  (9.2 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench delete --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --policy repair --order hubs --fractions 0,0.1,0.2,0.3,0.4,0.5 --efs 16,32,64,128 --k 10 --query-reps 5 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e6_delete.csv.partial --tag e6
+built in 7.337 s; deleting in hubs order with repair
+  f=0 ef=16: recall 0.957, 11.4 us, delete 0 us/op
+  f=0 ef=32: recall 0.9955, 21.9 us, delete 0 us/op
+  f=0 ef=64: recall 0.9995, 39.43 us, delete 0 us/op
+  f=0 ef=128: recall 1, 67.05 us, delete 0 us/op
+  f=0.1 ef=16: recall 0.931, 11.38 us, delete 39.21 us/op
+  f=0.1 ef=32: recall 0.9905, 21.52 us, delete 39.21 us/op
+  f=0.1 ef=64: recall 0.9995, 40.5 us, delete 39.21 us/op
+  f=0.1 ef=128: recall 1, 70.2 us, delete 39.21 us/op
+  f=0.2 ef=16: recall 0.911, 11.27 us, delete 24.77 us/op
+  f=0.2 ef=32: recall 0.9785, 21.22 us, delete 24.77 us/op
+  f=0.2 ef=64: recall 0.9995, 41.04 us, delete 24.77 us/op
+  f=0.2 ef=128: recall 1, 71.5 us, delete 24.77 us/op
+  f=0.3 ef=16: recall 0.9205, 10.23 us, delete 20.34 us/op
+  f=0.3 ef=32: recall 0.9825, 20.97 us, delete 20.34 us/op
+  f=0.3 ef=64: recall 0.9995, 40.52 us, delete 20.34 us/op
+  f=0.3 ef=128: recall 1, 71.98 us, delete 20.34 us/op
+  f=0.4 ef=16: recall 0.916, 10.67 us, delete 18 us/op
+  f=0.4 ef=32: recall 0.98, 20.46 us, delete 18 us/op
+  f=0.4 ef=64: recall 0.994, 41.65 us, delete 18 us/op
+  f=0.4 ef=128: recall 0.995, 77.85 us, delete 18 us/op
+  f=0.5 ef=16: recall 0.923, 11.06 us, delete 16.72 us/op
+  f=0.5 ef=32: recall 0.9775, 21.8 us, delete 16.72 us/op
+  f=0.5 ef=64: recall 0.993, 45.62 us, delete 16.72 us/op
+  f=0.5 ef=128: recall 1, 88.78 us, delete 16.72 us/op
+  (9.9 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench delete --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --policy rebuild --order hubs --fractions 0,0.1,0.2,0.3,0.4,0.5 --efs 16,32,64,128 --k 10 --query-reps 5 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e6_delete.csv.partial --tag e6
+built in 7.38 s; deleting in hubs order with rebuild
+  f=0 ef=16: recall 0.957, 11.4 us, delete 0 us/op
+  f=0 ef=32: recall 0.9955, 22.3 us, delete 0 us/op
+  f=0 ef=64: recall 0.9995, 39.48 us, delete 0 us/op
+  f=0 ef=128: recall 1, 66.94 us, delete 0 us/op
+  f=0.1 ef=16: recall 0.9685, 11.35 us, delete 0.03395 us/op
+  f=0.1 ef=32: recall 0.997, 21.12 us, delete 0.03395 us/op
+  f=0.1 ef=64: recall 1, 38.33 us, delete 0.03395 us/op
+  f=0.1 ef=128: recall 1, 64.53 us, delete 0.03395 us/op
+  f=0.2 ef=16: recall 0.9675, 10.07 us, delete 0.0557 us/op
+  f=0.2 ef=32: recall 0.996, 19.27 us, delete 0.0557 us/op
+  f=0.2 ef=64: recall 1, 35.35 us, delete 0.0557 us/op
+  f=0.2 ef=128: recall 1, 59.79 us, delete 0.0557 us/op
+  f=0.3 ef=16: recall 0.9755, 10.26 us, delete 0.04085 us/op
+  f=0.3 ef=32: recall 0.999, 17.48 us, delete 0.04085 us/op
+  f=0.3 ef=64: recall 1, 32.78 us, delete 0.04085 us/op
+  f=0.3 ef=128: recall 1, 55.38 us, delete 0.04085 us/op
+  f=0.4 ef=16: recall 0.98, 9.387 us, delete 0.03763 us/op
+  f=0.4 ef=32: recall 0.997, 16.14 us, delete 0.03763 us/op
+  f=0.4 ef=64: recall 1, 30.58 us, delete 0.03763 us/op
+  f=0.4 ef=128: recall 1, 52.22 us, delete 0.03763 us/op
+  f=0.5 ef=16: recall 0.985, 9.109 us, delete 0.03366 us/op
+  f=0.5 ef=32: recall 0.997, 14.71 us, delete 0.03366 us/op
+  f=0.5 ef=64: recall 1, 26.84 us, delete 0.03366 us/op
+  f=0.5 ef=128: recall 1, 46.52 us, delete 0.03366 us/op
+  (38.4 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench delete --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/uniform_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/uniform_d128_n100000_query.fvecs --dataset uniform_d128_n100000 --policy tombstone --order random --fractions 0,0.1,0.2,0.3,0.4,0.5 --efs 16,32,64,128 --k 10 --query-reps 5 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e6_delete.csv.partial --tag e6
+built in 19.1 s; deleting in random order with tombstone
+  f=0 ef=16: recall 0.1392, 22.87 us, delete 0 us/op
+  f=0 ef=32: recall 0.2303, 41 us, delete 0 us/op
+  f=0 ef=64: recall 0.3519, 76.31 us, delete 0 us/op
+  f=0 ef=128: recall 0.5033, 141.5 us, delete 0 us/op
+  f=0.1 ef=16: recall 0.1477, 25.44 us, delete 0.03335 us/op
+  f=0.1 ef=32: recall 0.2396, 44.94 us, delete 0.03335 us/op
+  f=0.1 ef=64: recall 0.3653, 82.07 us, delete 0.03335 us/op
+  f=0.1 ef=128: recall 0.5228, 157 us, delete 0.03335 us/op
+  f=0.2 ef=16: recall 0.1564, 27.74 us, delete 0.03102 us/op
+  f=0.2 ef=32: recall 0.2507, 48.49 us, delete 0.03102 us/op
+  f=0.2 ef=64: recall 0.3852, 89.43 us, delete 0.03102 us/op
+  f=0.2 ef=128: recall 0.5456, 171.3 us, delete 0.03102 us/op
+  f=0.3 ef=16: recall 0.1666, 31.17 us, delete 0.0294 us/op
+  f=0.3 ef=32: recall 0.2678, 54.92 us, delete 0.0294 us/op
+  f=0.3 ef=64: recall 0.4062, 102.9 us, delete 0.0294 us/op
+  f=0.3 ef=128: recall 0.569, 196.4 us, delete 0.0294 us/op
+  f=0.4 ef=16: recall 0.1801, 35.38 us, delete 0.02724 us/op
+  f=0.4 ef=32: recall 0.2873, 63.77 us, delete 0.02724 us/op
+  f=0.4 ef=64: recall 0.4323, 117.3 us, delete 0.02724 us/op
+  f=0.4 ef=128: recall 0.6008, 224.2 us, delete 0.02724 us/op
+  f=0.5 ef=16: recall 0.1995, 40.69 us, delete 0.02631 us/op
+  f=0.5 ef=32: recall 0.318, 72.37 us, delete 0.02631 us/op
+  f=0.5 ef=64: recall 0.4703, 136.7 us, delete 0.02631 us/op
+  f=0.5 ef=128: recall 0.6399, 262.5 us, delete 0.02631 us/op
+  (34.0 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench delete --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/uniform_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/uniform_d128_n100000_query.fvecs --dataset uniform_d128_n100000 --policy repair --order random --fractions 0,0.1,0.2,0.3,0.4,0.5 --efs 16,32,64,128 --k 10 --query-reps 5 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e6_delete.csv.partial --tag e6
+built in 19.11 s; deleting in random order with repair
+  f=0 ef=16: recall 0.1392, 22.56 us, delete 0 us/op
+  f=0 ef=32: recall 0.2303, 40.59 us, delete 0 us/op
+  f=0 ef=64: recall 0.3519, 75.69 us, delete 0 us/op
+  f=0 ef=128: recall 0.5033, 142.4 us, delete 0 us/op
+  f=0.1 ef=16: recall 0.1412, 22.51 us, delete 68.05 us/op
+  f=0.1 ef=32: recall 0.2315, 40.39 us, delete 68.05 us/op
+  f=0.1 ef=64: recall 0.358, 71.74 us, delete 68.05 us/op
+  f=0.1 ef=128: recall 0.5182, 136.9 us, delete 68.05 us/op
+  f=0.2 ef=16: recall 0.1386, 20.88 us, delete 60.13 us/op
+  f=0.2 ef=32: recall 0.2285, 37.06 us, delete 60.13 us/op
+  f=0.2 ef=64: recall 0.3586, 69.82 us, delete 60.13 us/op
+  f=0.2 ef=128: recall 0.5181, 130.3 us, delete 60.13 us/op
+  f=0.3 ef=16: recall 0.1424, 19.43 us, delete 52.65 us/op
+  f=0.3 ef=32: recall 0.2304, 35.02 us, delete 52.65 us/op
+  f=0.3 ef=64: recall 0.365, 65.13 us, delete 52.65 us/op
+  f=0.3 ef=128: recall 0.5207, 120 us, delete 52.65 us/op
+  f=0.4 ef=16: recall 0.1443, 18.44 us, delete 44.77 us/op
+  f=0.4 ef=32: recall 0.2452, 32.69 us, delete 44.77 us/op
+  f=0.4 ef=64: recall 0.3718, 57.93 us, delete 44.77 us/op
+  f=0.4 ef=128: recall 0.5303, 112.8 us, delete 44.77 us/op
+  f=0.5 ef=16: recall 0.1578, 16.49 us, delete 36.88 us/op
+  f=0.5 ef=32: recall 0.249, 29.71 us, delete 36.88 us/op
+  f=0.5 ef=64: recall 0.384, 53.43 us, delete 36.88 us/op
+  f=0.5 ef=128: recall 0.5402, 101.4 us, delete 36.88 us/op
+  (31.9 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench delete --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/uniform_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/uniform_d128_n100000_query.fvecs --dataset uniform_d128_n100000 --policy rebuild --order random --fractions 0,0.1,0.2,0.3,0.4,0.5 --efs 16,32,64,128 --k 10 --query-reps 5 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e6_delete.csv.partial --tag e6
+built in 19.06 s; deleting in random order with rebuild
+  f=0 ef=16: recall 0.1392, 22.96 us, delete 0 us/op
+  f=0 ef=32: recall 0.2303, 41.02 us, delete 0 us/op
+  f=0 ef=64: recall 0.3519, 76.45 us, delete 0 us/op
+  f=0 ef=128: recall 0.5033, 146.5 us, delete 0 us/op
+  f=0.1 ef=16: recall 0.146, 21.81 us, delete 0.03339 us/op
+  f=0.1 ef=32: recall 0.2407, 39.87 us, delete 0.03339 us/op
+  f=0.1 ef=64: recall 0.3654, 73.08 us, delete 0.03339 us/op
+  f=0.1 ef=128: recall 0.5323, 133.4 us, delete 0.03339 us/op
+  f=0.2 ef=16: recall 0.1468, 21.05 us, delete 0.04843 us/op
+  f=0.2 ef=32: recall 0.2397, 36.89 us, delete 0.04843 us/op
+  f=0.2 ef=64: recall 0.3772, 67.65 us, delete 0.04843 us/op
+  f=0.2 ef=128: recall 0.5386, 128.4 us, delete 0.04843 us/op
+  f=0.3 ef=16: recall 0.1592, 18.87 us, delete 0.04246 us/op
+  f=0.3 ef=32: recall 0.2563, 33.46 us, delete 0.04246 us/op
+  f=0.3 ef=64: recall 0.3942, 62.65 us, delete 0.04246 us/op
+  f=0.3 ef=128: recall 0.5597, 119.3 us, delete 0.04246 us/op
+  f=0.4 ef=16: recall 0.1734, 17.49 us, delete 0.03632 us/op
+  f=0.4 ef=32: recall 0.2702, 31.09 us, delete 0.03632 us/op
+  f=0.4 ef=64: recall 0.4228, 58.21 us, delete 0.03632 us/op
+  f=0.4 ef=128: recall 0.5856, 109.2 us, delete 0.03632 us/op
+  f=0.5 ef=16: recall 0.1895, 16.33 us, delete 0.03491 us/op
+  f=0.5 ef=32: recall 0.302, 29.2 us, delete 0.03491 us/op
+  f=0.5 ef=64: recall 0.4436, 50.68 us, delete 0.03491 us/op
+  f=0.5 ef=128: recall 0.6221, 97.48 us, delete 0.03491 us/op
+  (107.3 s)
+=== e6_delete done in 289 s
+=== e7_churn
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench churn --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --policy tombstone --rate 0.02 --initial 0.5 --rounds 10 --rebuild-every 5 --ef 24 --k 10 --query-reps 3 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e7_churn.csv.partial --tag e7
+  round 0: recall 0.9955, 15.99 us, tombstones 0
+  round 1: recall 0.996, 13.55 us, tombstones 1000
+  round 2: recall 0.9955, 13.67 us, tombstones 2000
+  round 3: recall 0.9955, 27.33 us, tombstones 3000
+  round 4: recall 0.9955, 14.47 us, tombstones 4000
+  round 5: recall 0.9955, 16.36 us, tombstones 5000
+  round 6: recall 0.9955, 16.53 us, tombstones 6000
+  round 7: recall 0.995, 15.19 us, tombstones 7000
+  round 8: recall 0.993, 15.57 us, tombstones 8000
+  round 9: recall 0.994, 16.09 us, tombstones 9000
+  round 10: recall 0.994, 16.47 us, tombstones 10000
+  (4.3 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench churn --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --policy repair --rate 0.02 --initial 0.5 --rounds 10 --rebuild-every 5 --ef 24 --k 10 --query-reps 3 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e7_churn.csv.partial --tag e7
+  round 0: recall 0.9955, 12.73 us, tombstones 0
+  round 1: recall 0.995, 13.22 us, tombstones 1000
+  round 2: recall 0.992, 13.27 us, tombstones 2000
+  round 3: recall 0.987, 13.09 us, tombstones 3000
+  round 4: recall 0.9875, 13.14 us, tombstones 4000
+  round 5: recall 0.989, 12.67 us, tombstones 5000
+  round 6: recall 0.9885, 12.77 us, tombstones 6000
+  round 7: recall 0.9885, 12.78 us, tombstones 7000
+  round 8: recall 0.9865, 12.99 us, tombstones 8000
+  round 9: recall 0.986, 13.39 us, tombstones 9000
+  round 10: recall 0.9855, 13.58 us, tombstones 10000
+  (4.3 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench churn --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --policy rebuild --rate 0.02 --initial 0.5 --rounds 10 --rebuild-every 5 --ef 24 --k 10 --query-reps 3 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e7_churn.csv.partial --tag e7
+  round 0: recall 0.9955, 13.37 us, tombstones 0
+  round 1: recall 0.996, 13.73 us, tombstones 1000
+  round 2: recall 0.9955, 13.37 us, tombstones 2000
+  round 3: recall 0.9955, 14.33 us, tombstones 3000
+  round 4: recall 0.9955, 14.23 us, tombstones 4000
+  round 5: recall 0.9945, 13.2 us, tombstones 0
+  round 6: recall 0.994, 13.65 us, tombstones 1000
+  round 7: recall 0.994, 13.97 us, tombstones 2000
+  round 8: recall 0.9915, 14.11 us, tombstones 3000
+  round 9: recall 0.9935, 14.38 us, tombstones 4000
+  round 10: recall 0.9895, 13.04 us, tombstones 0
+  (9.4 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench churn --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --policy tombstone --rate 0.10 --initial 0.5 --rounds 10 --rebuild-every 5 --ef 24 --k 10 --query-reps 3 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e7_churn.csv.partial --tag e7
+  round 0: recall 0.9955, 14.15 us, tombstones 0
+  round 1: recall 0.9945, 14.54 us, tombstones 5000
+  round 2: recall 0.992, 16.84 us, tombstones 10000
+  round 3: recall 0.992, 18.3 us, tombstones 15000
+  round 4: recall 0.992, 19.6 us, tombstones 20000
+  round 5: recall 0.9945, 21.44 us, tombstones 25000
+  round 6: recall 0.996, 23.28 us, tombstones 30000
+  round 7: recall 0.997, 26.13 us, tombstones 35000
+  round 8: recall 0.9955, 28.68 us, tombstones 40000
+  round 9: recall 0.997, 30.92 us, tombstones 45000
+  round 10: recall 0.997, 32.06 us, tombstones 50000
+  (9.4 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench churn --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --policy repair --rate 0.10 --initial 0.5 --rounds 10 --rebuild-every 5 --ef 24 --k 10 --query-reps 3 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e7_churn.csv.partial --tag e7
+  round 0: recall 0.9955, 13.33 us, tombstones 0
+  round 1: recall 0.9855, 12.84 us, tombstones 5000
+  round 2: recall 0.983, 13.02 us, tombstones 10000
+  round 3: recall 0.983, 13.27 us, tombstones 15000
+  round 4: recall 0.9775, 13.34 us, tombstones 20000
+  round 5: recall 0.982, 14.34 us, tombstones 25000
+  round 6: recall 0.986, 13.74 us, tombstones 30000
+  round 7: recall 0.9805, 14.46 us, tombstones 35000
+  round 8: recall 0.982, 13.5 us, tombstones 40000
+  round 9: recall 0.9775, 13.82 us, tombstones 45000
+  round 10: recall 0.9645, 14.31 us, tombstones 50000
+  (8.5 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench churn --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --policy rebuild --rate 0.10 --initial 0.5 --rounds 10 --rebuild-every 5 --ef 24 --k 10 --query-reps 3 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e7_churn.csv.partial --tag e7
+  round 0: recall 0.9955, 12.53 us, tombstones 0
+  round 1: recall 0.9945, 14.59 us, tombstones 5000
+  round 2: recall 0.992, 15.49 us, tombstones 10000
+  round 3: recall 0.992, 17.54 us, tombstones 15000
+  round 4: recall 0.992, 19.36 us, tombstones 20000
+  round 5: recall 0.9945, 13.38 us, tombstones 0
+  round 6: recall 0.9955, 13.93 us, tombstones 5000
+  round 7: recall 0.9945, 16.07 us, tombstones 10000
+  round 8: recall 0.9935, 17.73 us, tombstones 15000
+  round 9: recall 0.996, 18.8 us, tombstones 20000
+  round 10: recall 0.9965, 12.6 us, tombstones 0
+  (13.6 s)
+=== e7_churn done in 49 s
+=== e8_metric
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench sweep --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e8_metric.csv.partial --tag e8 --gt /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_gt.ivecs --metric l2 --efs 10,16,24,32,48,64,96,128,192,256,384,512,768,1024 --query-reps 5
+  build 1/1: 7.623 s
+  hnsw k=10 ef=10: recall 0.8965, 7.143 us/query
+  hnsw k=10 ef=16: recall 0.957, 9.814 us/query
+  hnsw k=10 ef=24: recall 0.9855, 15.2 us/query
+  hnsw k=10 ef=32: recall 0.9955, 20.46 us/query
+  hnsw k=10 ef=48: recall 0.9985, 29.32 us/query
+  hnsw k=10 ef=64: recall 0.9995, 37.74 us/query
+  hnsw k=10 ef=96: recall 0.9995, 51.76 us/query
+  hnsw k=10 ef=128: recall 1, 64.99 us/query
+  hnsw k=10 ef=192: recall 1, 87.46 us/query
+  hnsw k=10 ef=256: recall 1, 108.5 us/query
+  hnsw k=10 ef=384: recall 1, 143.2 us/query
+  hnsw k=10 ef=512: recall 1, 174.3 us/query
+  hnsw k=10 ef=768: recall 1, 230.2 us/query
+  hnsw k=10 ef=1024: recall 1, 275.8 us/query
+  (9.2 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench sweep --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e8_metric.csv.partial --tag e8 --metric cosine --efs 10,16,24,32,48,64,96,128,192,256,384,512,768,1024 --query-reps 5
+computed exact ground truth in 0.0752 s
+  build 1/1: 7.281 s
+  hnsw k=10 ef=10: recall 0.9045, 7.057 us/query
+  hnsw k=10 ef=16: recall 0.9615, 9.824 us/query
+  hnsw k=10 ef=24: recall 0.982, 14.48 us/query
+  hnsw k=10 ef=32: recall 0.995, 19.24 us/query
+  hnsw k=10 ef=48: recall 0.999, 28.32 us/query
+  hnsw k=10 ef=64: recall 0.9995, 36.83 us/query
+  hnsw k=10 ef=96: recall 0.9995, 50.91 us/query
+  hnsw k=10 ef=128: recall 0.9995, 63.69 us/query
+  hnsw k=10 ef=192: recall 0.9995, 86.27 us/query
+  hnsw k=10 ef=256: recall 0.9995, 105.9 us/query
+  hnsw k=10 ef=384: recall 0.9995, 141.1 us/query
+  hnsw k=10 ef=512: recall 1, 174.4 us/query
+  hnsw k=10 ef=768: recall 1, 232 us/query
+  hnsw k=10 ef=1024: recall 1, 280.9 us/query
+  (8.9 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench sweep --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/clustered_d128_n100000_query.fvecs --dataset clustered_d128_n100000 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/e8_metric.csv.partial --tag e8 --metric ip --efs 10,16,24,32,48,64,96,128,192,256,384,512,768,1024 --query-reps 5
+computed exact ground truth in 0.0609 s
+  build 1/1: 11.95 s
+  hnsw k=10 ef=10: recall 0.784, 5.786 us/query
+  hnsw k=10 ef=16: recall 0.8195, 8.466 us/query
+  hnsw k=10 ef=24: recall 0.871, 11.97 us/query
+  hnsw k=10 ef=32: recall 0.8905, 15.21 us/query
+  hnsw k=10 ef=48: recall 0.9125, 21.38 us/query
+  hnsw k=10 ef=64: recall 0.9255, 27.45 us/query
+  hnsw k=10 ef=96: recall 0.942, 39.37 us/query
+  hnsw k=10 ef=128: recall 0.9515, 51.15 us/query
+  hnsw k=10 ef=192: recall 0.969, 73.84 us/query
+  hnsw k=10 ef=256: recall 0.9715, 97.25 us/query
+  hnsw k=10 ef=384: recall 0.977, 141 us/query
+  hnsw k=10 ef=512: recall 0.979, 186.5 us/query
+  hnsw k=10 ef=768: recall 0.982, 269.2 us/query
+  hnsw k=10 ef=1024: recall 0.983, 356.3 us/query
+  (13.6 s)
+=== e8_metric done in 32 s
+=== sift
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench sweep --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/sift/sift_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/sift/sift_query.fvecs --n 100000 --dataset sift_n100000 --efs 10,16,24,32,48,64,96,128,192,256,384,512 --query-reps 5 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/sift.csv.partial --tag sift
+computed exact ground truth in 2.85 s
+  build 1/1: 11.15 s
+  hnsw k=10 ef=10: recall 0.7923, 13.41 us/query
+  hnsw k=10 ef=16: recall 0.8739, 18.62 us/query
+  hnsw k=10 ef=24: recall 0.9272, 25.07 us/query
+  hnsw k=10 ef=32: recall 0.9548, 31.41 us/query
+  hnsw k=10 ef=48: recall 0.9788, 44.01 us/query
+  hnsw k=10 ef=64: recall 0.9888, 55.76 us/query
+  hnsw k=10 ef=96: recall 0.9957, 78.49 us/query
+  hnsw k=10 ef=128: recall 0.9979, 100.6 us/query
+  hnsw k=10 ef=192: recall 0.9993, 141.2 us/query
+  hnsw k=10 ef=256: recall 0.9998, 181.8 us/query
+  hnsw k=10 ef=384: recall 0.9999, 255.4 us/query
+  hnsw k=10 ef=512: recall 1, 326.8 us/query
+  (90.8 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench sweep --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/sift/sift_base.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/sift/sift_query.fvecs --n 1000000 --dataset sift_n1000000 --efs 10,16,24,32,48,64,96,128,192,256,384,512 --query-reps 5 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/sift.csv.partial --tag sift --gt /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/sift/sift_groundtruth.ivecs
+  build 1/1: 218.6 s
+  hnsw k=10 ef=10: recall 0.7103, 23.54 us/query
+  hnsw k=10 ef=16: recall 0.8022, 31.91 us/query
+  hnsw k=10 ef=24: recall 0.8662, 41.97 us/query
+  hnsw k=10 ef=32: recall 0.9038, 51.88 us/query
+  hnsw k=10 ef=48: recall 0.9437, 71.21 us/query
+  hnsw k=10 ef=64: recall 0.9637, 90.18 us/query
+  hnsw k=10 ef=96: recall 0.9817, 126.9 us/query
+  hnsw k=10 ef=128: recall 0.9896, 162.6 us/query
+  hnsw k=10 ef=192: recall 0.9954, 230.9 us/query
+  hnsw k=10 ef=256: recall 0.9974, 297.1 us/query
+  hnsw k=10 ef=384: recall 0.9988, 422.7 us/query
+  hnsw k=10 ef=512: recall 0.9992, 544.5 us/query
+  (344.7 s)
+=== sift done in 436 s

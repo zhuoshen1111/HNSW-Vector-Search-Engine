@@ -1,0 +1,20 @@
+# Error handling: each failing command prints "error: ..." and leaves the index unchanged.
+# Expected output: tests/golden/errors.expected, expected exit code 1 (tests/golden/errors.exitcode).
+query tests/data/tiny_queries.csv
+build tests/data/missing.csv
+build tests/data/tiny.csv --M 4 --efc 16
+add 100 1,2,3
+add 0 5,5
+add 101 1,nan
+delete 42
+delete 1 42
+search 1,2,3
+query tests/data/tiny_queries.csv --k ten
+query tests/data/tiny_queries.csv --colour red
+load tests/data/tiny.csv
+build tests/data/tiny.csv --metric hamming
+build tests/data/tiny.csv --M 1
+frobnicate
+# Nothing above changed the index: still 8 live vectors, all invariants hold.
+info
+check

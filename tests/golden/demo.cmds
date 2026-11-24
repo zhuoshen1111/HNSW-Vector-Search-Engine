@@ -1,0 +1,28 @@
+# End-to-end workflow on the 8-point 2-d dataset tests/data/tiny.csv.
+# Expected output: tests/golden/demo.expected (run with --no-timing so it is deterministic).
+build tests/data/tiny.csv --metric l2 --M 4 --efc 16
+info
+query tests/data/tiny_queries.csv --k 3 --ef 16 --exact
+search 0.9,0.8 --k 3
+# Delete q0's nearest neighbour; the next-best points must move up.
+delete 3
+query tests/data/tiny_queries.csv --k 3 --ef 16 --exact
+# Re-add the deleted id and replace another vector in place.
+add 3 1,1
+upsert 7 8.5,8.5
+query tests/data/tiny_queries.csv --k 3 --ef 16 --exact
+# Persistence: the reloaded index answers identically.
+save tests/tmp/tiny.idx
+load tests/tmp/tiny.idx
+query tests/data/tiny_queries.csv --k 3 --ef 16
+check
+# Delete everything (including every entry point), then grow again.
+delete 0 1 2 3 4 5 6 7
+info
+search 1,1 --k 3
+add 10 2,2
+add 11 0,0
+search 1,1 --k 3
+check
+compact
+info

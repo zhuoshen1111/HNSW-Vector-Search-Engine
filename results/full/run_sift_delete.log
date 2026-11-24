@@ -1,0 +1,138 @@
+=== sift_delete
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench delete --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/sift/sift_base_100k.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/sift/sift_query.fvecs --n 100000 --nq 1000 --dataset sift_n100000 --policy tombstone --order random --fractions 0,0.1,0.2,0.3,0.4,0.5 --efs 16,32,64,128 --k 10 --query-reps 5 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/sift_delete.csv.partial --tag sift_delete
+built in 10.83 s; deleting in random order with tombstone
+  f=0 ef=16: recall 0.8726, 19.98 us, delete 0 us/op
+  f=0 ef=32: recall 0.9522, 31.8 us, delete 0 us/op
+  f=0 ef=64: recall 0.9875, 55.35 us, delete 0 us/op
+  f=0 ef=128: recall 0.998, 95.69 us, delete 0 us/op
+  f=0.1 ef=16: recall 0.8818, 18.98 us, delete 0.03135 us/op
+  f=0.1 ef=32: recall 0.9595, 34.82 us, delete 0.03135 us/op
+  f=0.1 ef=64: recall 0.9897, 61.75 us, delete 0.03135 us/op
+  f=0.1 ef=128: recall 0.9983, 108.7 us, delete 0.03135 us/op
+  f=0.2 ef=16: recall 0.8962, 22.14 us, delete 0.03099 us/op
+  f=0.2 ef=32: recall 0.9654, 36.63 us, delete 0.03099 us/op
+  f=0.2 ef=64: recall 0.9907, 65.76 us, delete 0.03099 us/op
+  f=0.2 ef=128: recall 0.9986, 112.8 us, delete 0.03099 us/op
+  f=0.3 ef=16: recall 0.9087, 24.41 us, delete 0.02852 us/op
+  f=0.3 ef=32: recall 0.969, 41.12 us, delete 0.02852 us/op
+  f=0.3 ef=64: recall 0.9935, 73.08 us, delete 0.02852 us/op
+  f=0.3 ef=128: recall 0.9992, 130.1 us, delete 0.02852 us/op
+  f=0.4 ef=16: recall 0.9227, 28.62 us, delete 0.02527 us/op
+  f=0.4 ef=32: recall 0.9755, 43.85 us, delete 0.02527 us/op
+  f=0.4 ef=64: recall 0.9952, 78.44 us, delete 0.02527 us/op
+  f=0.4 ef=128: recall 0.9997, 147.4 us, delete 0.02527 us/op
+  f=0.5 ef=16: recall 0.9338, 33.69 us, delete 0.02225 us/op
+  f=0.5 ef=32: recall 0.9809, 53.21 us, delete 0.02225 us/op
+  f=0.5 ef=64: recall 0.9971, 94.56 us, delete 0.02225 us/op
+  f=0.5 ef=128: recall 1, 162.8 us, delete 0.02225 us/op
+  (22.0 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench delete --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/sift/sift_base_100k.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/sift/sift_query.fvecs --n 100000 --nq 1000 --dataset sift_n100000 --policy repair-prune --order random --fractions 0,0.1,0.2,0.3,0.4,0.5 --efs 16,32,64,128 --k 10 --query-reps 5 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/sift_delete.csv.partial --tag sift_delete
+built in 10.39 s; deleting in random order with repair-prune
+  f=0 ef=16: recall 0.8726, 17.53 us, delete 0 us/op
+  f=0 ef=32: recall 0.9522, 28.71 us, delete 0 us/op
+  f=0 ef=64: recall 0.9875, 52.58 us, delete 0 us/op
+  f=0 ef=128: recall 0.998, 95.13 us, delete 0 us/op
+  f=0.1 ef=16: recall 0.8399, 16.52 us, delete 40.93 us/op
+  f=0.1 ef=32: recall 0.9368, 27.14 us, delete 40.93 us/op
+  f=0.1 ef=64: recall 0.982, 48.61 us, delete 40.93 us/op
+  f=0.1 ef=128: recall 0.9972, 91.46 us, delete 40.93 us/op
+  f=0.2 ef=16: recall 0.8285, 16.44 us, delete 29.47 us/op
+  f=0.2 ef=32: recall 0.9297, 27.17 us, delete 29.47 us/op
+  f=0.2 ef=64: recall 0.981, 48.64 us, delete 29.47 us/op
+  f=0.2 ef=128: recall 0.9963, 90.77 us, delete 29.47 us/op
+  f=0.3 ef=16: recall 0.8311, 15.6 us, delete 24.74 us/op
+  f=0.3 ef=32: recall 0.9302, 26.52 us, delete 24.74 us/op
+  f=0.3 ef=64: recall 0.9797, 47.97 us, delete 24.74 us/op
+  f=0.3 ef=128: recall 0.9964, 88.88 us, delete 24.74 us/op
+  f=0.4 ef=16: recall 0.8309, 15.16 us, delete 21.52 us/op
+  f=0.4 ef=32: recall 0.931, 25.8 us, delete 21.52 us/op
+  f=0.4 ef=64: recall 0.981, 45.52 us, delete 21.52 us/op
+  f=0.4 ef=128: recall 0.9967, 86.8 us, delete 21.52 us/op
+  f=0.5 ef=16: recall 0.8302, 14.38 us, delete 19.11 us/op
+  f=0.5 ef=32: recall 0.93, 24.96 us, delete 19.11 us/op
+  f=0.5 ef=64: recall 0.9803, 44.15 us, delete 19.11 us/op
+  f=0.5 ef=128: recall 0.9962, 83.37 us, delete 19.11 us/op
+  (19.6 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench delete --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/sift/sift_base_100k.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/sift/sift_query.fvecs --n 100000 --nq 1000 --dataset sift_n100000 --policy repair-fixed --order random --fractions 0,0.1,0.2,0.3,0.4,0.5 --efs 16,32,64,128 --k 10 --query-reps 5 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/sift_delete.csv.partial --tag sift_delete
+built in 10.54 s; deleting in random order with repair-fixed
+  f=0 ef=16: recall 0.8726, 17.85 us, delete 0 us/op
+  f=0 ef=32: recall 0.9522, 31.6 us, delete 0 us/op
+  f=0 ef=64: recall 0.9875, 53.52 us, delete 0 us/op
+  f=0 ef=128: recall 0.998, 95.72 us, delete 0 us/op
+  f=0.1 ef=16: recall 0.8757, 16.99 us, delete 57.11 us/op
+  f=0.1 ef=32: recall 0.9513, 28.67 us, delete 57.11 us/op
+  f=0.1 ef=64: recall 0.9869, 50.94 us, delete 57.11 us/op
+  f=0.1 ef=128: recall 0.9972, 92.26 us, delete 57.11 us/op
+  f=0.2 ef=16: recall 0.8694, 16.61 us, delete 46.31 us/op
+  f=0.2 ef=32: recall 0.9494, 26.97 us, delete 46.31 us/op
+  f=0.2 ef=64: recall 0.9868, 47.23 us, delete 46.31 us/op
+  f=0.2 ef=128: recall 0.9964, 87.69 us, delete 46.31 us/op
+  f=0.3 ef=16: recall 0.8662, 14.91 us, delete 40.61 us/op
+  f=0.3 ef=32: recall 0.9474, 26.09 us, delete 40.61 us/op
+  f=0.3 ef=64: recall 0.9831, 44.62 us, delete 40.61 us/op
+  f=0.3 ef=128: recall 0.9957, 83.34 us, delete 40.61 us/op
+  f=0.4 ef=16: recall 0.8696, 14.15 us, delete 35.69 us/op
+  f=0.4 ef=32: recall 0.9482, 24.82 us, delete 35.69 us/op
+  f=0.4 ef=64: recall 0.9831, 43.47 us, delete 35.69 us/op
+  f=0.4 ef=128: recall 0.9957, 79.59 us, delete 35.69 us/op
+  f=0.5 ef=16: recall 0.8659, 13.27 us, delete 31.14 us/op
+  f=0.5 ef=32: recall 0.9437, 23.27 us, delete 31.14 us/op
+  f=0.5 ef=64: recall 0.9828, 40.39 us, delete 31.14 us/op
+  f=0.5 ef=128: recall 0.9962, 76.11 us, delete 31.14 us/op
+  (20.3 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench delete --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/sift/sift_base_100k.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/sift/sift_query.fvecs --n 100000 --nq 1000 --dataset sift_n100000 --policy repair --order random --fractions 0,0.1,0.2,0.3,0.4,0.5 --efs 16,32,64,128 --k 10 --query-reps 5 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/sift_delete.csv.partial --tag sift_delete
+built in 10.18 s; deleting in random order with repair
+  f=0 ef=16: recall 0.8726, 18.12 us, delete 0 us/op
+  f=0 ef=32: recall 0.9522, 29.36 us, delete 0 us/op
+  f=0 ef=64: recall 0.9875, 52.24 us, delete 0 us/op
+  f=0 ef=128: recall 0.998, 95.49 us, delete 0 us/op
+  f=0.1 ef=16: recall 0.8832, 17.86 us, delete 64.83 us/op
+  f=0.1 ef=32: recall 0.9545, 29.77 us, delete 64.83 us/op
+  f=0.1 ef=64: recall 0.9882, 52.99 us, delete 64.83 us/op
+  f=0.1 ef=128: recall 0.9979, 96.87 us, delete 64.83 us/op
+  f=0.2 ef=16: recall 0.8865, 17.44 us, delete 62.99 us/op
+  f=0.2 ef=32: recall 0.9583, 29.79 us, delete 62.99 us/op
+  f=0.2 ef=64: recall 0.9896, 53.95 us, delete 62.99 us/op
+  f=0.2 ef=128: recall 0.9977, 96.9 us, delete 62.99 us/op
+  f=0.3 ef=16: recall 0.8934, 16.61 us, delete 61.17 us/op
+  f=0.3 ef=32: recall 0.958, 28.49 us, delete 61.17 us/op
+  f=0.3 ef=64: recall 0.9897, 49.77 us, delete 61.17 us/op
+  f=0.3 ef=128: recall 0.9976, 92.52 us, delete 61.17 us/op
+  f=0.4 ef=16: recall 0.9037, 16.82 us, delete 57.86 us/op
+  f=0.4 ef=32: recall 0.9627, 27.39 us, delete 57.86 us/op
+  f=0.4 ef=64: recall 0.9899, 47.06 us, delete 57.86 us/op
+  f=0.4 ef=128: recall 0.9984, 88.25 us, delete 57.86 us/op
+  f=0.5 ef=16: recall 0.9029, 15.6 us, delete 54.98 us/op
+  f=0.5 ef=32: recall 0.9677, 26.48 us, delete 54.98 us/op
+  f=0.5 ef=64: recall 0.992, 44.76 us, delete 54.98 us/op
+  f=0.5 ef=128: recall 0.9984, 86.47 us, delete 54.98 us/op
+  (21.4 s)
+$ /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/build/bin/hnsw_bench delete --base /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/sift/sift_base_100k.fvecs --query /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/data/sift/sift_query.fvecs --n 100000 --nq 1000 --dataset sift_n100000 --policy rebuild --order random --fractions 0,0.1,0.2,0.3,0.4,0.5 --efs 16,32,64,128 --k 10 --query-reps 5 --out /Users/ruiboyang/Downloads/EE538/Project/HNSW-Vector-Search-Engine/results/full/raw/sift_delete.csv.partial --tag sift_delete
+built in 10.11 s; deleting in random order with rebuild
+  f=0 ef=16: recall 0.8726, 17.35 us, delete 0 us/op
+  f=0 ef=32: recall 0.9522, 29.24 us, delete 0 us/op
+  f=0 ef=64: recall 0.9875, 52.81 us, delete 0 us/op
+  f=0 ef=128: recall 0.998, 93.53 us, delete 0 us/op
+  f=0.1 ef=16: recall 0.8774, 16.77 us, delete 0.0316 us/op
+  f=0.1 ef=32: recall 0.9542, 27.94 us, delete 0.0316 us/op
+  f=0.1 ef=64: recall 0.9892, 49.76 us, delete 0.0316 us/op
+  f=0.1 ef=128: recall 0.9983, 90.58 us, delete 0.0316 us/op
+  f=0.2 ef=16: recall 0.8841, 15.92 us, delete 0.04776 us/op
+  f=0.2 ef=32: recall 0.9583, 26.61 us, delete 0.04776 us/op
+  f=0.2 ef=64: recall 0.9901, 46.71 us, delete 0.04776 us/op
+  f=0.2 ef=128: recall 0.9982, 84.23 us, delete 0.04776 us/op
+  f=0.3 ef=16: recall 0.8845, 14.9 us, delete 0.04226 us/op
+  f=0.3 ef=32: recall 0.9592, 26.05 us, delete 0.04226 us/op
+  f=0.3 ef=64: recall 0.9909, 45 us, delete 0.04226 us/op
+  f=0.3 ef=128: recall 0.9989, 80.69 us, delete 0.04226 us/op
+  f=0.4 ef=16: recall 0.8937, 13.59 us, delete 0.03788 us/op
+  f=0.4 ef=32: recall 0.9614, 23.19 us, delete 0.03788 us/op
+  f=0.4 ef=64: recall 0.9906, 40.2 us, delete 0.03788 us/op
+  f=0.4 ef=128: recall 0.9992, 73.76 us, delete 0.03788 us/op
+  f=0.5 ef=16: recall 0.8934, 12.35 us, delete 0.0355 us/op
+  f=0.5 ef=32: recall 0.9633, 21.41 us, delete 0.0355 us/op
+  f=0.5 ef=64: recall 0.9917, 35.5 us, delete 0.0355 us/op
+  f=0.5 ef=128: recall 0.9994, 64.82 us, delete 0.0355 us/op
+  (58.8 s)
+=== sift_delete done in 142 s
+exit=0
